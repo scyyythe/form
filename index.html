@@ -14,7 +14,7 @@
     <div class="container">
       <form action="" class="form">
         <div class="tab active first">
-          <p class="p1">Fill up your personal information.</p>
+          <p class="p1"><b>Fill up your personal information.</b></p>
 
           <div class="upper">
             <div class="input">
@@ -120,9 +120,7 @@
               </div>
 
               <div class="buttons">
-                <button type="button" onclick="nextTab()">
-                  Continue &#8594;
-                </button>
+                <button type="button" onclick="nextTab()">&#8594;</button>
               </div>
             </div>
           </div>
@@ -130,100 +128,172 @@
 
         <div class="tab">
           <h3>Home Address</h3>
-          <label for="unit">RM/FLR/Unit No. & Bldg. Name</label><br />
-          <input
-            type="text"
-            name="unit"
-            placeholder="e.g., 1234 Unit Bldg."
-          /><br />
+          <div class="container_home">
+            <div class="left_home">
+              <div class="input in_num">
+                <label for="unit">RM/FLR/Unit No. & Bldg. Name</label><br />
+                <input
+                  type="text"
+                  name="unit"
+                  placeholder="e.g., 1234 Unit Bldg."
+                /><br />
+              </div>
+              <div class="input in_num">
+                <label for="houseNo">House/Lot & Blk. No</label><br />
+                <input
+                  type="text"
+                  name="houseNo"
+                  placeholder="e.g., 5678 Block 9"
+                /><br />
+              </div>
 
-          <label for="houseNo">House/Lot & Blk. No</label><br />
-          <input
-            type="text"
-            name="houseNo"
-            placeholder="e.g., 5678 Block 9"
-          /><br />
+              <div class="input">
+                <label for="street">Street Name</label><br />
+                <input
+                  type="text"
+                  name="street"
+                  placeholder="e.g., Main Street"
+                /><br />
+              </div>
+              <div class="input">
+                <label for="subdivision">Subdivision</label><br />
+                <input
+                  type="text"
+                  name="subdivision"
+                  placeholder="e.g., Sunshine Subdivision"
+                /><br />
+              </div>
 
-          <label for="street">Street Name</label><br />
-          <input
-            type="text"
-            name="street"
-            placeholder="e.g., Main Street"
-          /><br />
+              <div class="input">
+                <label for="baranggay">Barangay/District/Locality</label><br />
+                <input
+                  type="text"
+                  name="barangay"
+                  placeholder="e.g., Poblacion"
+                /><br />
+              </div>
+            </div>
 
-          <label for="subdivision">Subdivision</label><br />
-          <input
-            type="text"
-            name="subdivision"
-            placeholder="e.g., Sunshine Subdivision"
-          /><br />
+            <div class="right_home">
+              <div class="input">
+                <label for="cityMunicipality">City/Municipality</label><br />
+                <input
+                  type="text"
+                  name="cityMunicipality"
+                  placeholder="e.g., Minglanilla"
+                /><br />
+              </div>
+              <div class="input">
+                <label for="province">Province</label><br />
+                <input
+                  type="text"
+                  name="province"
+                  placeholder="e.g., Cebu"
+                /><br />
+              </div>
+              <div class="input">
+                <label for="country">Country</label><br />
+                <input
+                  type="text"
+                  name="country"
+                  placeholder="e.g., Philippines"
+                /><br />
+              </div>
+              <div class="input">
+                <label for="zip">Zip Code</label><br />
+                <input type="text" name="zip" placeholder="e.g., 6046" /><br />
+              </div>
 
-          <label for="baranggay">Barangay/District/Locality</label><br />
-          <input
-            type="text"
-            name="barangay"
-            placeholder="e.g., Poblacion"
-          /><br />
-
-          <label for="cityMunicipality">City/Municipality</label><br />
-          <input
-            type="text"
-            name="cityMunicipality"
-            placeholder="e.g., Minglanilla"
-          /><br />
-
-          <label for="province">Province</label><br />
-          <input type="text" name="province" placeholder="e.g., Cebu" /><br />
-
-          <label for="country">Country</label><br />
-          <input
-            type="text"
-            name="country"
-            placeholder="e.g., Philippines"
-          /><br />
-
-          <label for="zip">Zip Code</label><br />
-          <input type="text" name="zip" placeholder="e.g., 6046" /><br />
-
-          <div class="buttons">
-            <button type="button" onclick="prevTab()"><</button>
-            <button type="button" onclick="nextTab()">Continue &#8594;</button>
+              <div class="buttons home_button">
+                <button type="button" onclick="prevTab()">&#8592;</button>
+                <button type="button" onclick="nextTab()">&#8594;</button>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="tab">
           <h3>Contact Information</h3>
-          <label for="mobile">Mobile/ Cellphone Number</label>
-          <input type="text" /><br />
 
-          <label for="email">Email Address</label>
-          <input type="email" /><br />
+          <div class="upper">
+            <div class="input">
+              <label for="mobile">Mobile/ Cellphone Number</label>
+              <input
+                type="text"
+                name="mobile"
+                placeholder="e.g., 09123456789"
+              /><br />
+            </div>
+            <div class="input">
+              <label for="email">Email Address</label><br />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+              /><br />
+            </div>
+            <div class="input">
+              <label for="telephone">Telephone</label><br />
+              <input
+                type="text"
+                name="telephone"
+                placeholder="e.g., (032) 123-4567"
+              /><br />
+            </div>
+          </div>
 
-          <label for="telephone">Telephone</label>
-          <input type="text" /><br />
+          <div class="guardian">
+            <div class="father_info">
+              <h4>Father's Name</h4>
+              <label for="lastnameFather">Last Name</label><br />
+              <input
+                type="text"
+                name="lastnameFather"
+                placeholder="e.g., Canete"
+              /><br />
 
-          <h4>Father's Name</h4>
-          <label for="lastnameFather">Last Name</label>
-          <input type="text" /><br />
+              <label for="firstnameFather">First Name</label><br />
+              <input
+                type="text"
+                name="firstnameFather"
+                placeholder="e.g., Armando"
+              /><br />
 
-          <label for="firstnameFather">First Name</label>
-          <input type="text" /><br />
+              <label for="middlenameFather">Middle Name</label><br />
+              <input
+                type="text"
+                name="middlenameFather"
+                placeholder="e.g., Zafra"
+              /><br />
+            </div>
 
-          <label for="middlenameFather">Middle Name</label>
-          <input type="text" /><br />
+            <div class="mother_info">
+              <h4>Mother's Maiden Name</h4>
+              <label for="lastnameMother">Last Name</label><br />
+              <input
+                type="text"
+                name="lastnameMother"
+                placeholder="e.g., Ibalarrosa"
+              /><br />
 
-          <h4>Mother's Maiden Name</h4>
-          <label for="lastnameMother">Last Name</label>
-          <input type="text" /><br />
+              <label for="firstnameMother">First Name</label><br />
+              <input
+                type="text"
+                name="firstnameMother"
+                placeholder="e.g., Lorecris"
+              /><br />
 
-          <label for="firstnameMother">First Name</label>
-          <input type="text" /><br />
-
-          <label for="middlenameMother">Middle Name</label>
-          <input type="text" /><br />
+              <label for="middlenameMother">Middle Name</label><br />
+              <input
+                type="text"
+                name="middlenameMother"
+                placeholder="e.g., Dular "
+              /><br />
+            </div>
+          </div>
 
           <div class="buttons button2">
-            <button type="button" onclick="prevTab()"><</button>
+            <button type="button" onclick="prevTab()">&#8592;</button>
             <button type="submit">Submit</button>
           </div>
         </div>
