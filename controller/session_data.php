@@ -12,7 +12,9 @@ $otherStatusInvalid = isset($_SESSION['otherStatusInvalid']) ? $_SESSION['otherS
 $taxInvalid = isset($_SESSION['taxInvalid']) ? $_SESSION['taxInvalid'] : '';
 $nationalityInvalid = isset($_SESSION['nationalityInvalid']) ? $_SESSION['nationalityInvalid'] : '';
 $religionInvalid = isset($_SESSION['religionInvalid']) ? $_SESSION['religionInvalid'] : '';
-
+$cityInvalid = isset($_SESSION['cityInvalid']) ? $_SESSION['cityInvalid'] : '';
+$municipalityInvalid = isset($_SESSION['municipalityInvalid']) ? $_SESSION['municipalityInvalid'] : '';
+$provinceInvalid = isset($_SESSION['provinceInvalid']) ? $_SESSION['provinceInvalid'] : '';
 
 //stored data
 $lastname = htmlspecialchars($_SESSION['lastname']);
@@ -25,3 +27,6 @@ $otherStatus = htmlspecialchars($_SESSION['otherStatus']);
 $tax = htmlspecialchars($_SESSION['tax']);
 $nationality = htmlspecialchars($_SESSION['nationality']);
 $religion = htmlspecialchars($_SESSION['religion']);
+$city = htmlspecialchars($_SESSION['city']);
+$municipality = htmlspecialchars($_SESSION['municipality']);
+$province = htmlspecialchars($_SESSION['province']);

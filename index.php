@@ -121,7 +121,8 @@ require 'controller/session_data.php';
           <div class="foot1">
             <div class="input">
               <label for="city">City</label><br />
-              <input type="text" name="city" placeholder="e.g., Cebu City" />
+              <input type="text" name="city" placeholder="e.g., Cebu City" /><br>
+              <span class="error"><?php echo $_SESSION['cityInvalid']; ?></span>
             </div>
             <div class="input">
               <label for="municipality">Municipality</label><br />
@@ -129,6 +130,7 @@ require 'controller/session_data.php';
                 type="text"
                 name="municipality"
                 placeholder="e.g., Minglanilla" /><br />
+              <span class="error"><?php echo $_SESSION['municipalityInvalid']; ?></span>
             </div>
           </div>
 
@@ -139,6 +141,7 @@ require 'controller/session_data.php';
                 type="text"
                 name="province"
                 placeholder="e.g., Cebu" /><br />
+              <span class="error"><?php echo $_SESSION['provinceInvalid']; ?></span>
             </div>
 
             <div class="buttons">

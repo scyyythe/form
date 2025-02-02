@@ -12,20 +12,28 @@ $_SESSION['otherStatusInvalid'] = '';
 $_SESSION['taxInvalid'] = '';
 $_SESSION['nationalityInvalid'] = '';
 $_SESSION['religionInvalid'] = '';
+$_SESSION['cityInvalid'] = '';
+$_SESSION['municipalityInvalid'] = '';
+$_SESSION['provinceInvalid'] = '';
 
+//check 
 $valid = true;
 
 //store data
-$_SESSION['lastname'] = $_POST['lastname'];
-$_SESSION['firstname'] = $_POST['firstname'];
-$_SESSION['middle'] = $_POST['middle'];
-$_SESSION['date'] = $_POST['date'];
-$_SESSION['sex'] = $_POST['sex'];
-$_SESSION['civilStatus'] = $_POST['civilStatus'];
-$_SESSION['otherStatus'] = $_POST['otherStatus'];
-$_SESSION['tax'] = $_POST['tax'];
-$_SESSION['nationality'] = $_POST['nationality'];
-$_SESSION['religion'] = $_POST['religion'];
+$_SESSION['lastname'] = trim($_POST['lastname']);
+$_SESSION['firstname'] = trim($_POST['firstname']);
+$_SESSION['middle'] = trim($_POST['middle']);
+$_SESSION['date'] = trim($_POST['date']);
+$_SESSION['sex'] = trim($_POST['sex']);
+$_SESSION['civilStatus'] = trim($_POST['civilStatus']);
+$_SESSION['otherStatus'] = trim($_POST['otherStatus']);
+$_SESSION['tax'] = trim($_POST['tax']);
+$_SESSION['nationality'] = trim($_POST['nationality']);
+$_SESSION['religion'] = trim($_POST['religion']);
+$_SESSION['city'] = trim($_POST['city']);
+$_SESSION['municipality'] = trim($_POST['municipality']);
+$_SESSION['province'] = trim($_POST['province']);
+
 
 //last name validation
 if (empty($_POST['lastname'])) {
@@ -51,10 +59,7 @@ if (empty($_POST['middle'])) {
 } elseif (!preg_match("/^[A-Z]$|^[A-Z]\.$/", $_POST['middle'])) {
     $_SESSION['middleInvalid'] = 'Middle initial should be a single uppercase letter, optionally followed by a period.';
     $valid = false;
-} else {
-    $_SESSION['middle'] = $_POST['middle'];
 }
-
 
 //date of birth validation
 if (empty($_POST['date'])) {
@@ -92,19 +97,48 @@ if (empty($_POST['tax'])) {
     $valid = false;
 }
 
+//nationality validation
 if (empty($_POST['nationality'])) {
     $_SESSION['nationalityInvalid'] = 'Nationality is required!';
     $valid = false;
-} elseif (!preg_match("/^[A-Z][a-zA-Z]*$/", $_POST['nationality'])) {
+} elseif (!preg_match("/^[A-Z][a-zA-Z\s]*$/", $_POST['nationality'])) {
     $_SESSION['nationalityInvalid'] = 'Nationality must start with a capital letter and contain only letters!';
     $valid = false;
 }
 
+//religion validation
 if (empty($_POST['religion'])) {
     $_SESSION['religionInvalid'] = 'Religion is required!';
     $valid = false;
-} elseif (!preg_match("/^[A-Z][a-zA-Z\s]*$/", $_POST['religion'])) {
+} elseif (!preg_match("/^[A-Z][a-zA-Z\s'-]*$/", $_POST['religion'])) {
     $_SESSION['religionInvalid'] = 'Please enter a valid religion name!';
+    $valid = false;
+}
+
+// city validation
+if (empty($_POST['city'])) {
+    $_SESSION['cityInvalid'] = 'City is required!';
+    $valid = false;
+} elseif (!preg_match("/^[A-Z][a-zA-Z\s]*$/", $_POST['city'])) {
+    $_SESSION['cityInvalid'] = 'Input a valid city name!';
+    $valid = false;
+}
+
+// municipality validation
+if (empty($_POST['municipality'])) {
+    $_SESSION['municipalityInvalid'] = 'Municipality is required!';
+    $valid = false;
+} elseif (!preg_match("/^[A-Z][a-zA-Z\s]*$/", $_POST['municipality'])) {
+    $_SESSION['municipalityInvalid'] = 'Invalid municipality name!';
+    $valid = false;
+}
+
+// province validation
+if (empty($_POST['province'])) {
+    $_SESSION['provinceInvalid'] = 'Province is required!';
+    $valid = false;
+} elseif (!preg_match("/^[A-Z][a-zA-Z\s]*$/", $_POST['province'])) {
+    $_SESSION['provinceInvalid'] = 'Invalid province name.';
     $valid = false;
 }
 

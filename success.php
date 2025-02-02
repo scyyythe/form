@@ -30,6 +30,9 @@ require 'controller/session_data.php';
     <p>Tax Number: <?php echo $tax ?></p>
     <p>Nationality: <?php echo $nationality ?></p>
     <p>Religion: <?php echo $religion ?></p>
+    <p>City: <?php echo $city ?></p>
+    <p>Municipality: <?php echo $municipality ?></p>
+    <p>Province: <?php echo $province ?></p>
 </body>
 
 </html>
