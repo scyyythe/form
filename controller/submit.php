@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+//for validation
 $_SESSION['lastnameInvalid'] = '';
 $_SESSION['firstnameInvalid'] = '';
 $_SESSION['middleInvalid'] = '';
@@ -38,9 +39,9 @@ if (empty($_POST['middle'])) {
 
 
 if ($valid) {
-    header("Location: success.php");
+    header("Location: ../success.php");
     exit();
 } else {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }

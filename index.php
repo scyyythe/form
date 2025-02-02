@@ -14,7 +14,7 @@ $middleInvalid = isset($_SESSION['middleInvalid']) ? $_SESSION['middleInvalid'] 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" type="image/png" href="image/icons8-google-forms-48.png" />
   <title>Form Input</title>
 </head>
@@ -24,7 +24,7 @@ $middleInvalid = isset($_SESSION['middleInvalid']) ? $_SESSION['middleInvalid'] 
     <h1 class="">PERSONAL DATA</h1>
   </header>
   <div class="container">
-    <form action="submit.php" class="form" method="POST">
+    <form action="controller/submit.php" class="form" method="POST">
       <div class="tab active first">
         <p class="p1"><b>Fill up your personal information.</b></p>
 
@@ -302,7 +302,7 @@ $middleInvalid = isset($_SESSION['middleInvalid']) ? $_SESSION['middleInvalid'] 
     </form>
   </div>
 
-  <script src="main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>
