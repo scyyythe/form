@@ -1,10 +1,5 @@
 <?php
-session_start();
-
-$lastname = htmlspecialchars($_SESSION['lastname']);
-$firstname = htmlspecialchars($_SESSION['firstname']);
-$middle = htmlspecialchars($_SESSION['middle']);
-
+require 'controller/session_data.php';
 ?>
 
 <!DOCTYPE html>
@@ -13,17 +8,28 @@ $middle = htmlspecialchars($_SESSION['middle']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="image/icons8-male-user-30.png" />
+    <link rel="stylesheet" href="css/style.css">
     <title>Personal Information</title>
 </head>
 
 <body>
     <h1>Successful!</h1>
 
-    <p><strong>Last Name:</strong> <?php echo $lastname; ?></p>
-    <p><strong>First Name:</strong> <?php echo $firstname; ?></p>
-    <p><strong>Middle Name:</strong> <?php echo $middle; ?></p>
-
+    <p>Last Name: <?php echo $lastname; ?></p>
+    <p>First Name: <?php echo $firstname; ?></p>
+    <p>Middle Name: <?php echo $middle; ?></p>
+    <p>Date of Birth: <?php echo $date ?></p>
+    <p>Sex: <?php echo $sex ?></p>
+    <p>Civil Status: <?php echo $civilStatus; ?></p>
+    <?php
+    if ($civilStatus === 'others' && !empty($otherStatus)) {
+        echo "<p>Specified Status: " . $otherStatus . "</p>";
+    }
+    ?>
+    <p>Tax Number: <?php echo $tax ?></p>
+    <p>Nationality: <?php echo $nationality ?></p>
+    <p>Religion: <?php echo $religion ?></p>
 </body>
 
 </html>

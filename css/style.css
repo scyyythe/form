@@ -26,7 +26,6 @@ input {
     border-bottom: 1px solid #c9aee7;
     box-sizing: border-box;
     border-radius: 0;
-  
     font-size: 13px;
     outline: none;
     margin-top: 10px;
@@ -42,11 +41,9 @@ input[type="date"] {
 select{
     font-size: 12px;
     padding: 3px;
-    margin-top: 5px; 
     border: none;
     border-bottom: 1px solid #9B7EBD;
     outline: none;
-    margin-bottom: 1rem;
     color: gray;
 }
 
@@ -54,6 +51,7 @@ label{
     font-size: 13px;
     color: #3B1E54;
 }
+
 .p1{
     color: #3B1E54;
     font-size: 15px;
@@ -144,6 +142,7 @@ label{
     gap: 10px;
     width: 100%;
     flex-wrap: wrap;
+   
   }
   
   .input, .input2 {
@@ -188,6 +187,7 @@ label{
     justify-content: space-between;
     margin-bottom: 2rem;
     flex-wrap: wrap;
+    margin-top: 2rem;
   }
   .foot{
     position: relative;
@@ -266,6 +266,5 @@ label{
 
 .error {
   color: red;
-  font-size: 12px;
-
+  font-size: 8px;
 }

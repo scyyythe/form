@@ -1,11 +1,5 @@
 <?php
-session_start();
-
-
-$lastnameInvalid = isset($_SESSION['lastnameInvalid']) ? $_SESSION['lastnameInvalid'] : '';
-$firstnameInvalid = isset($_SESSION['firstnameInvalid']) ? $_SESSION['firstnameInvalid'] : '';
-$middleInvalid = isset($_SESSION['middleInvalid']) ? $_SESSION['middleInvalid'] : '';
-
+require 'controller/session_data.php';
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +39,8 @@ $middleInvalid = isset($_SESSION['middleInvalid']) ? $_SESSION['middleInvalid'] 
           <div class="input">
             <label for="middle">Middle Initial</label>
             <br />
-            <input type="text" name="middle" placeholder="Middle Initial" /><br>
+            <input type="text" name="middle" placeholder="e.g., I" /><br>
+            <span class="error"><?php echo $middleInvalid; ?></span>
           </div>
         </div>
 
@@ -53,7 +48,7 @@ $middleInvalid = isset($_SESSION['middleInvalid']) ? $_SESSION['middleInvalid'] 
           <div class="input">
             <label for="date">Date of Birth</label><br />
             <input type="date" name="date" /><br />
-
+            <span class="error"><?php echo $dateInvalid; ?></span>
           </div>
 
           <div class="input2">
@@ -68,28 +63,33 @@ $middleInvalid = isset($_SESSION['middleInvalid']) ? $_SESSION['middleInvalid'] 
                 <label for="female">Female</label>
               </div>
             </div>
+            <span class="error"><?php echo $sexInvalid; ?></span>
           </div>
 
           <div class="input">
-            <label for="civilStatus">Civil Status:</label><br />
-            <select
-              name="civilStatus"
-              id="civilStatus"
-              onchange="clickOthers()">
-              <option value="single">Single</option>
-              <option value="married">Married</option>
-              <option value="widowed">Widowed</option>
-              <option value="separated">Legally Separated</option>
-              <option value="others">Others</option>
-            </select>
-            <br />
+            <label for="civilStatus">Civil Status</label><br />
 
+            <div class="select">
+              <select
+                name="civilStatus"
+                id="civilStatus"
+                onchange="clickOthers()">
+                <option value="" disabled selected>Select Civil Status</option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Widowed">Widowed</option>
+                <option value="Legally Separated">Legally Separated</option>
+                <option value="others">Others</option>
+              </select><br>
+              <span class="error"><?php echo $_SESSION['civilStatusInvalid']; ?></span>
+            </div>
             <input
               type="text"
               id="otherStatus"
               name="otherStatus"
               placeholder="Specify your status"
               style="display: none" />
+            <span class="error"><?php echo $_SESSION['otherStatusInvalid']; ?></span>
           </div>
         </div>
         <div class="center2">
@@ -99,6 +99,7 @@ $middleInvalid = isset($_SESSION['middleInvalid']) ? $_SESSION['middleInvalid'] 
               type="text"
               name="tax"
               placeholder="e.g., 123-45-6789" /><br />
+            <span class="error"><?php echo $_SESSION['taxInvalid']; ?></span>
           </div>
           <div class="input">
             <label for="nationality">Nationality</label><br />
@@ -106,10 +107,12 @@ $middleInvalid = isset($_SESSION['middleInvalid']) ? $_SESSION['middleInvalid'] 
               type="text"
               name="nationality"
               placeholder="Nationality" /><br />
+            <span class="error"><?php echo $_SESSION['nationalityInvalid']; ?></span>
           </div>
           <div class="input">
             <label for="religion">Religion</label><br />
-            <input type="text" name="religion" placeholder="Religion" />
+            <input type="text" name="religion" placeholder="Religion" /><br>
+            <span class="error"><?php echo $_SESSION['religionInvalid']; ?></span>
           </div>
         </div>
         <div class="foot">
