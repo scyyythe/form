@@ -125,22 +125,16 @@ require 'controller/session_data.php';
               <span class="error"><?php echo $_SESSION['cityInvalid']; ?></span>
             </div>
             <div class="input">
-              <label for="municipality">Municipality</label><br />
-              <input
-                type="text"
-                name="municipality"
-                placeholder="e.g., Minglanilla" /><br />
+              <label for="municipality_birth">Municipality</label><br />
+              <input type="text" name="municipality_birth" placeholder="e.g., Cebu" /><br>
               <span class="error"><?php echo $_SESSION['municipalityInvalid']; ?></span>
             </div>
           </div>
 
           <div class="foot2">
             <div class="input">
-              <label for="province">Province</label><br />
-              <input
-                type="text"
-                name="province"
-                placeholder="e.g., Cebu" /><br />
+              <label for="province_birth">Province</label><br />
+              <input type="text" name="province_birth" placeholder="e.g., Cebu" /><br>
               <span class="error"><?php echo $_SESSION['provinceInvalid']; ?></span>
             </div>
 
@@ -203,7 +197,7 @@ require 'controller/session_data.php';
                 placeholder="e.g., Minglanilla" /><br />
             </div>
             <div class="input">
-              <label for="province">Province</label><br />
+              <label for="province_home">Province</label><br />
               <input
                 type="text"
                 name="province"

@@ -28,5 +28,5 @@ $tax = htmlspecialchars($_SESSION['tax']);
 $nationality = htmlspecialchars($_SESSION['nationality']);
 $religion = htmlspecialchars($_SESSION['religion']);
 $city = htmlspecialchars($_SESSION['city']);
-$municipality = htmlspecialchars($_SESSION['municipality']);
-$province = htmlspecialchars($_SESSION['province']);
+$municipality = htmlspecialchars($_SESSION['municipality_birth']);
+$province = htmlspecialchars($_SESSION['province_birth']);

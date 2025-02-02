@@ -1,5 +1,7 @@
 <?php
 session_start();
+var_dump($_POST);
+exit();
 
 //for validation
 $_SESSION['lastnameInvalid'] = '';
@@ -31,8 +33,8 @@ $_SESSION['tax'] = trim($_POST['tax']);
 $_SESSION['nationality'] = trim($_POST['nationality']);
 $_SESSION['religion'] = trim($_POST['religion']);
 $_SESSION['city'] = trim($_POST['city']);
-$_SESSION['municipality'] = trim($_POST['municipality']);
-$_SESSION['province'] = trim($_POST['province']);
+$_SESSION['municipality_birth'] = trim($_POST['municipality_birth']);
+$_SESSION['province_birth'] = trim($_POST['province_birth']);
 
 
 //last name validation
@@ -125,27 +127,27 @@ if (empty($_POST['city'])) {
 }
 
 // municipality validation
-if (empty($_POST['municipality'])) {
+if (empty($_POST['municipality_birth'])) {
     $_SESSION['municipalityInvalid'] = 'Municipality is required!';
     $valid = false;
-} elseif (!preg_match("/^[A-Z][a-zA-Z\s]*$/", $_POST['municipality'])) {
+} elseif (!preg_match("/^[A-Z][a-zA-Z\s]*$/", $_POST['municipality_birth'])) {
     $_SESSION['municipalityInvalid'] = 'Invalid municipality name!';
     $valid = false;
 }
 
 // province validation
-if (empty($_POST['province'])) {
+if (empty($_POST['province_birth'])) {
     $_SESSION['provinceInvalid'] = 'Province is required!';
     $valid = false;
-} elseif (!preg_match("/^[A-Z][a-zA-Z\s]*$/", $_POST['province'])) {
+} elseif (!preg_match("/^[A-Z][a-zA-Z0-9\s]*$/", $_POST['province_birth'])) {
     $_SESSION['provinceInvalid'] = 'Invalid province name.';
     $valid = false;
 }
 
 
-
 //check if naa sud ang fields or naa error
 if ($valid) {
+
     header("Location: ../success.php");
     exit();
 } else {
