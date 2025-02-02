@@ -20,3 +20,15 @@ let currentTab = 0;
           showTab(currentTab);
         }
       }
+
+      //other when clicked
+      function clickOthers() {
+        let civilStatusDropdown = document.getElementById("civilStatus");
+        let otherStatusField = document.getElementById("otherStatus");
+    
+        if (civilStatusDropdown.value === "others") {
+            otherStatusField.style.display = "block";
+        } else {
+            otherStatusField.style.display = "none";
+        }
+    }

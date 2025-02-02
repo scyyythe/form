@@ -17,7 +17,7 @@ header{
     justify-content: center;
     color: #3B1E54;
 }
-h3,h4{
+h3,h4,h5{
     color: #3B1E54;
 }
 input {
@@ -26,7 +26,7 @@ input {
     border-bottom: 1px solid #c9aee7;
     box-sizing: border-box;
     border-radius: 0;
-    margin-bottom: 1rem;
+  
     font-size: 13px;
     outline: none;
     margin-top: 10px;
@@ -251,11 +251,21 @@ label{
 .guardian{
     display: flex;
     max-width: 1500px;
-   
+    position: relative;
+    bottom: 1rem;
 }
 
 .father_info,
 .mother_info{
     width: 50%;
-   
+
+    input{
+      width: 80%;
+    }
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+
 }
