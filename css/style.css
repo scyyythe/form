@@ -191,7 +191,7 @@ label{
   }
   .foot{
     position: relative;
-    bottom: 1rem;
+ 
   }
   .foot1{
     display: flex;
@@ -267,4 +267,5 @@ label{
 .error {
   color: red;
   font-size: 8px;
+  position: relative;
 }

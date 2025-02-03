@@ -33,6 +33,29 @@ require 'controller/session_data.php';
     <p>City: <?php echo $city ?></p>
     <p>Municipality: <?php echo $municipality ?></p>
     <p>Province: <?php echo $province ?></p>
+
+    <p>Unit: <?php echo $unit; ?></p>
+    <p>House Number: <?php echo $houseNo; ?></p>
+    <p>Street: <?php echo $street; ?></p>
+    <p>Subdivision: <?php echo $subdivision; ?></p>
+    <p>Barangay: <?php echo $baranggay; ?></p>
+    <p>City/Municipality: <?php echo $cityMunicipality; ?></p>
+    <p>Province: <?php echo $province_home; ?></p>
+    <p>Country: <?php echo $country; ?></p>
+    <p>Zip Code: <?php echo $zip; ?></p>
+
+    <p>Mobile: <?php echo $mobile; ?></p>
+    <p>Email: <?php echo $email; ?></p>
+    <p>Telephone: <?php echo $telephone; ?></p>
+
+    <p>Father's Last Name: <?php echo $lastnameFather; ?></p>
+    <p>Father's First Name: <?php echo $firstnameFather; ?></p>
+    <p>Father's Middle Initial: <?php echo $middleinitialFather; ?></p>
+
+    <p>Mother's Last Name: <?php echo $lastnameMother; ?></p>
+    <p>Mother's First Name: <?php echo $firstnameMother; ?></p>
+    <p>Mother's Middle Initial: <?php echo $middleinitialMother; ?></p>
+
 </body>
 
 </html>

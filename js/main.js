@@ -32,3 +32,5 @@ let currentTab = 0;
             otherStatusField.style.display = "none";
         }
     }
+
+    
