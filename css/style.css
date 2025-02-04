@@ -226,9 +226,7 @@ label{
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem; 
-    input{
-        margin-bottom: 1.5rem;
-    }
+   
 }
 .left_home,
 .right_home {
@@ -267,5 +265,6 @@ label{
 .error {
   color: red;
   font-size: 8px;
-  position: relative;
+
 }
+
