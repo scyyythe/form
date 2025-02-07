@@ -283,7 +283,7 @@ include 'controller/session_data.php';
             <input
               type="text"
               name="middleinitialFather"
-              placeholder="Father's Middle Initial" /><br />
+              placeholder="Father's Middle Name" /><br />
             <span class="error"><?php echo $middleinitialFatherInvalid; ?></span>
             <br>
           </div>
@@ -307,7 +307,7 @@ include 'controller/session_data.php';
             <input
               type="text"
               name="middleinitialMother"
-              placeholder="Mother's Middle Inital" /><br />
+              placeholder="Mother's Middle Name" /><br />
             <span class="error"><?php echo $middleinitialMotherInvalid; ?></span> <br>
           </div>
         </div>

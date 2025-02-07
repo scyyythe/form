@@ -350,8 +350,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['middleinitialFather'])) {
         $_SESSION['middleinitialFatherInvalid'] = 'Father\'s middle initial is required';
         $valid = false;
-    } elseif (!preg_match("/^[A-Z]$|^[A-Z]\.$/", $_POST['middleinitialFather'])) {
-        $_SESSION['middleinitialFatherInvalid'] = 'Father\'s middle initial should be a single uppercase letter, optionally followed by a period.';
+    } elseif (!checkLetters($_POST['middleinitialFather'])) {
+        $_SESSION['middleinitialFatherInvalid'] = 'Father\'s middle name should be a proper name.';
         $valid = false;
     }
 
@@ -377,8 +377,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['middleinitialMother'])) {
         $_SESSION['middleinitialMotherInvalid'] = 'Mother\'s middle initial is required';
         $valid = false;
-    } elseif (!preg_match("/^[A-Z]$|^[A-Z]\.$/", $_POST['middleinitialMother'])) {
-        $_SESSION['middleinitialMotherInvalid'] = 'Mother\'s middle initial should be a single uppercase letter, optionally followed by a period.';
+    } elseif (!checkLetters($_POST['middleinitialMother'])) {
+        $_SESSION['middleinitialMotherInvalid'] = 'Mother\'s middle name should be a proper name.';
         $valid = false;
     }
 
