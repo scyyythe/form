@@ -469,3 +469,23 @@ small{
   height: 200px;
 }
 
+.btn {
+  text-align: center;
+  margin-top: 20px;
+  margin-left: 2rem;
+}
+
+.btn button {
+  padding: 5px 20px;
+  background-color: #9B7EBD;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn button:hover {
+  background-color: #3B1E54;
+}

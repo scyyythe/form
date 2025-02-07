@@ -16,8 +16,6 @@ include 'controller/session_data.php';
 
 <body style="background-color: rgba(200, 228, 255, 0.13)">
   <header>
-    <button onclick="window.location.href='index.php'">Return</button>
-
     <div class="header-success">
       <h3>Dashboard</h3>
       <h3>Personal Settings</h3>
@@ -131,7 +129,7 @@ include 'controller/session_data.php';
           <h5>Place of Birth</h5>
           <div class="birth">
             <img src="image/home.png" alt="home" />
-            <small>Born in <?php echo $municipality_birth . ', ' . $province_birth; ?></small>
+            <small>Born in <?php echo $municipality_birth . ', ' . $province_birth . ', ' . $city; ?></small>
           </div>
         </div>
       </div>
@@ -174,7 +172,14 @@ include 'controller/session_data.php';
           <input type="text" value="<?php echo $telephone; ?>" readonly />
         </div>
       </div>
+
+      <div class="btn">
+        <button onclick="window.location.href='index.php'">Return</button>
+      </div>
     </section>
+
+
+
   </div>
 
 </body>

@@ -124,6 +124,7 @@ include 'controller/session_data.php';
               <input type="text" name="city" placeholder="e.g., Cebu City" /><br>
               <span class="error"><?php echo $cityInvalid; ?></span>
             </div>
+
             <div class="input">
               <label for="municipality_birth">Municipality</label><br />
               <input type="text" name="municipality_birth" placeholder="e.g., Cebu" /><br>
@@ -210,14 +211,25 @@ include 'controller/session_data.php';
                 placeholder="e.g., Cebu" /><br />
               <span class="error"><?php echo $province_homeInvalid; ?></span>
             </div>
+            <?php
+            $countriesData = file_get_contents("countries.json");
+            $countries = json_decode($countriesData, true);
+            ?>
+
             <div class="input">
               <label for="country">Country</label><br />
-              <input
-                type="text"
-                name="country"
-                placeholder="e.g., Philippines" /><br />
+              <select name="country">
+                <option value="">Select a country</option>
+                <?php
+                foreach ($countries as $country) {
+                  echo "<option value='$country'>$country</option>";
+                }
+                ?>
+              </select><br />
               <span class="error"><?php echo $countryInvalid; ?></span>
             </div>
+
+
             <div class="input">
               <label for="zip">Zip Code</label><br />
               <input type="text" name="zip" placeholder="e.g., 6046" /><br />
@@ -279,7 +291,7 @@ include 'controller/session_data.php';
               placeholder="Father's First Name" /><br />
             <span class="error"><?php echo $firstnameFatherInvalid; ?></span>
             <br>
-            <label for="middleinitialFather">Middle Initial</label><br />
+            <label for="middleinitialFather">Middle Name</label><br />
             <input
               type="text"
               name="middleinitialFather"
@@ -303,7 +315,7 @@ include 'controller/session_data.php';
               name="firstnameMother"
               placeholder="Mother's First Name" /><br />
             <span class="error"><?php echo $firstnameMotherInvalid; ?></span> <br>
-            <label for="middleinitialMother">Middle Initial</label><br />
+            <label for="middleinitialMother">Middle Name</label><br />
             <input
               type="text"
               name="middleinitialMother"

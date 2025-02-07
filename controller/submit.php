@@ -296,8 +296,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['zip'])) {
         $_SESSION['zipInvalid'] = 'This field is required!';
         $valid = false;
-    } elseif (!checkLetters($_POST['zip'])) {
-        $_SESSION['zipInvalid'] = 'Invalid province name!';
+    } elseif (!isNumber($_POST['zip'])) {
+        $_SESSION['zipInvalid'] = 'Zip code must be numeric!';
     }
 
     // Mobile validation
@@ -350,8 +350,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['middleinitialFather'])) {
         $_SESSION['middleinitialFatherInvalid'] = 'Father\'s middle initial is required';
         $valid = false;
-    } elseif (!checkLetters($_POST['middleinitialFather'])) {
-        $_SESSION['middleinitialFatherInvalid'] = 'Father\'s middle name should be a proper name.';
+    } elseif (!preg_match("/^[A-Z]$|^[A-Z]\.$/", $_POST['middleinitialFather'])) {
+        $_SESSION['middleinitialFatherInvalid'] = 'Father\'s middle initial should be a single uppercase letter, optionally followed by a period.';
         $valid = false;
     }
 
@@ -377,8 +377,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['middleinitialMother'])) {
         $_SESSION['middleinitialMotherInvalid'] = 'Mother\'s middle initial is required';
         $valid = false;
-    } elseif (!checkLetters($_POST['middleinitialMother'])) {
-        $_SESSION['middleinitialMotherInvalid'] = 'Mother\'s middle name should be a proper name.';
+    } elseif (!preg_match("/^[A-Z]$|^[A-Z]\.$/", $_POST['middleinitialMother'])) {
+        $_SESSION['middleinitialMotherInvalid'] = 'Mother\'s middle initial should be a single uppercase letter, optionally followed by a period.';
         $valid = false;
     }
 
