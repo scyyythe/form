@@ -173,7 +173,7 @@ include 'controller/session_data.php';
         </div>
       </div>
 
-      <div class="btn">
+      <div class="btn2">
         <button onclick="window.location.href='index.php'">Return</button>
       </div>
     </section>

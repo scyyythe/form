@@ -196,8 +196,14 @@ label{
   .foot1{
     display: flex;
     justify-content: space-between;
+        width: 67%;
   }
-
+  .foot1 input {
+    width: 100%;
+    max-width: 300px; 
+    margin-right: 10px;
+  }
+  
   .foot2 {
     display: flex;
     align-items: center;
@@ -469,13 +475,13 @@ small{
   height: 200px;
 }
 
-.btn {
+.btn2 {
   text-align: center;
   margin-top: 20px;
-  margin-left: 2rem;
+  margin-left: 5rem;
 }
 
-.btn button {
+.btn2 button {
   padding: 5px 20px;
   background-color: #9B7EBD;
   color: white;
@@ -484,8 +490,9 @@ small{
   font-size: 13px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  
 }
 
-.btn button:hover {
+.btn2 button:hover {
   background-color: #3B1E54;
 }

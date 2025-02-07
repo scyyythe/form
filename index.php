@@ -121,13 +121,13 @@ include 'controller/session_data.php';
           <div class="foot1">
             <div class="input">
               <label for="city">City</label><br />
-              <input type="text" name="city" placeholder="e.g., Cebu City" /><br>
+              <input class="input5" type="text" name="city" placeholder="e.g., Cebu City" /><br>
               <span class="error"><?php echo $cityInvalid; ?></span>
             </div>
 
             <div class="input">
               <label for="municipality_birth">Municipality</label><br />
-              <input type="text" name="municipality_birth" placeholder="e.g., Cebu" /><br>
+              <input class="input5" type="text" name="municipality_birth" placeholder="e.g., Cebu" /><br>
               <span class="error"><?php echo $municipalityInvalid; ?></span>
             </div>
           </div>
