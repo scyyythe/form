@@ -7,6 +7,7 @@
 }
 body{
     overflow-x: hidden;
+    background-color: rgba(200, 228, 255, 0.13);
 }
 header{
     width: 100%;
@@ -21,30 +22,33 @@ h3,h4,h5{
     color: #3B1E54;
 }
 input {
-    padding: 5px;
-    border: none;
-    border-bottom: 1px solid #c9aee7;
+    padding: 10px;
+   border-radius:5px;
+   border-width: 1px; 
     box-sizing: border-box;
-    border-radius: 0;
     font-size: 13px;
     outline: none;
     margin-top: 10px;
-    color: gray;
+    border-color: rgba(200, 228, 255, 0.959);;
+   
 }
-input:focus,select:focus{
-    border-bottom: 2px solid #3B1E54 ; 
-}
+
 input[type="date"] {
     font-size: 12px; 
     color: gray;
 }
 select{
     font-size: 12px;
-    padding: 3px;
-    border: none;
-    border-bottom: 1px solid #9B7EBD;
+      padding: 10px;
+   border-radius:5px;
+   border-width: 1px; 
+    box-sizing: border-box;
+    font-size: 13px;
     outline: none;
-    color: gray;
+    margin-top: 10px;
+    border-color: rgba(200, 228, 255, 0.959);;
+   
+   
 }
 
 label{
@@ -123,13 +127,13 @@ label{
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-
+ 
 }
   
 .input {
     flex: 1 1 30%;
     min-width: 200px;
-
+  
     input{
         width: 70%;
     }
