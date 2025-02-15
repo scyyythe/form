@@ -248,7 +248,7 @@ label{
  
 }
 .home_button{
-    width: 10%;
+    width: 12%;
     position: relative;
     right: 30%;
 }
@@ -274,7 +274,7 @@ label{
 
 .error {
   color: red;
-  font-size: 8px;
+  font-size: 11px;
 
 }
 
