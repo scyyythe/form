@@ -406,6 +406,9 @@ label{
   align-self: flex-start; 
   width: 95%;
 }
+.home-add-card input{
+  color: gray;
+}
 .home-add-card small{
   font-size: 13px;
 }
@@ -490,6 +493,8 @@ small{
 .card-info input{
   width: 100%;
   background-color: transparent;
+  color: gray;
+  font-size: 11px;
 }
 .infos2{
   display: flex;
