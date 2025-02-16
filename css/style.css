@@ -98,7 +98,8 @@ label{
     justify-content: space-between;
 }
 .button2{
-    width: 8%;
+    width: 12%;
+    margin-bottom: 1rem;
 }
 .buttons button {
     padding: 10px;
@@ -306,6 +307,7 @@ label{
   padding: 1rem;
   background-color: rgba(200, 228, 255, 0.13);
   justify-content: center;
+  
 }
 
 .left-card {
@@ -315,6 +317,9 @@ label{
   padding: 2rem;
   border-radius: 1rem;
   background-color: white;
+}
+.left-card input{
+  color: gray;
 }
 .info-icon{
   display: flex;
@@ -338,7 +343,9 @@ label{
   flex-wrap: wrap;
   align-items: flex-start;
 }
-
+.board2 input{
+  color: gray;
+}
 .board3 {
   flex: 1;
   max-width: 15em;
@@ -378,6 +385,10 @@ label{
   justify-content: space-between;
   position: relative;
   bottom: 1rem;
+}
+.guardian-info input{
+  color: gray;
+
 }
 .home-add-card img {
   width: 20px; 

@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 // require
 function validateRequiredField($fieldName, $validationSession, $errorMessage, &$valid)

@@ -1,8 +1,9 @@
 <?php
-session_start();
-require '../functions/validation.php';
-// require_once '../config/connection.php';
 
+require '../functions/validation.php';
+require_once '../config/connection.php';
+require_once '../model/User.php';
+require_once '../controller/session_data.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //for validation
     $validationFields = [
@@ -95,8 +96,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION[$field] = trim($_POST[$field]);
     }
 
-    $valid = true;
-
     // my name
     validateNameField('lastname', 'lastnameInvalid', 'Last name is required!', $valid);
     validateNameField('firstname', 'firstnameInvalid', 'First name is required!', $valid);
@@ -114,7 +113,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     validateNameField('nationality', 'nationalityInvalid', 'Nationality is required!', $valid);
     validateNameField('religion', 'religionInvalid', 'Religion is required!', $valid);
-
 
     // Date of Birth
     validateDateOfBirth('date', 'dateInvalid', $valid);
@@ -151,10 +149,67 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     validateEmail('email', 'emailInvalid', $valid);
     validateNumeric('telephone', 'telephoneInvalid', 'Telephone number is required!', $valid);
 
+    function calculateAge($dob)
+    {
+        if (empty($dob)) {
+            return null;
+        }
+        $dob = new DateTime($dob);
+        $today = new DateTime();
+        return $today->diff($dob)->y;
+    }
 
-    //check if naa sud ang fields or naa error
     if ($valid) {
-        //insert
+        $dob = $_SESSION['date'] ?? '';
+        $age = calculateAge($dob);
+
+        $fields = [
+            "lastname" => "lastname",
+            "firstname" => "firstname",
+            "middle" => "middle",
+            "sex" => "sex",
+            "civil_status" => "civilStatus",
+            "other_status" => "otherStatus",
+            "tax" => "tax",
+            "nationality" => "nationality",
+            "religion" => "religion",
+            "city" => "city",
+            "municipality_birth" => "municipality_birth",
+            "province_birth" => "province_birth",
+            "unit" => "unit",
+            "house_no" => "houseNo",
+            "street" => "street",
+            "subdivision" => "subdivision",
+            "baranggay" => "baranggay",
+            "city_municipality" => "cityMunicipality",
+            "province_home" => "province_home",
+            "country" => "country",
+            "zip" => "zip",
+            "mobile" => "mobile",
+            "email" => "email",
+            "telephone" => "telephone",
+            "father_lastname" => "lastnameFather",
+            "father_firstname" => "firstnameFather",
+            "father_middleinitial" => "middleinitialFather",
+            "mother_lastname" => "lastnameMother",
+            "mother_firstname" => "firstnameMother",
+            "mother_middleinitial" => "middleinitialMother"
+        ];
+
+        $data = ["dob" => $dob, "age" => $age];
+
+        foreach ($fields as $key => $sessionKey) {
+            $data[$key] = $_SESSION[$sessionKey] ?? '';
+        }
+
+        $user = new User($conn);
+        $result = $user->insert($data);
+
+        if ($result !== true) {
+            echo "Insert failed: " . $result;
+            exit();
+        }
+
         header("Location: ../success.php");
         exit();
     } else {

@@ -42,6 +42,7 @@ include 'controller/session_data.php';
             <br />
             <input type="text" name="middle" value="<?php echo $middle ?>" placeholder="e.g., I" /><br>
             <span class="error"><?php echo $middleInvalid; ?></span>
+            <input type="text" id="age" name="age" value="<?php echo $data['age'] ?? ''; ?>" readonly hidden /><br />
           </div>
         </div>
 
@@ -347,7 +348,7 @@ include 'controller/session_data.php';
 
         <div class="buttons button2">
           <button type="button" onclick="prevTab()">&#8592;</button>
-          <button type="submit">Submit</button>
+          <button type="submit">Add User Details</button>
         </div>
       </div>
     </form>

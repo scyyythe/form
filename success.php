@@ -175,6 +175,7 @@ include 'controller/session_data.php';
 
       <div class="btn2">
         <button onclick="window.location.href='return.php'">Return</button>
+        <button>Update Information</button>
       </div>
     </section>
 
