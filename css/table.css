@@ -6,6 +6,7 @@
 }
 body{
     overflow-x: hidden;
+    padding: 1rem;
     background-color: rgba(200, 228, 255, 0.13);
 }
 

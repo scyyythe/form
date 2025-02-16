@@ -10,13 +10,13 @@ include 'controller/session_data.php';
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" type="image/png" href="image/icons8-google-forms-48.png" />
-  <title>Form Input</title>
+  <title>Register New Details</title>
 </head>
 
 <body>
   <header class="index-head">
-    <h1 class="">PERSONAL DATA</h1>
-    <button onclick="window.location.href='views/dataView.php'">View All User</button>
+    <h3 class="head-p">Register New Data</h3>
+    <button onclick="window.location.href='views/dataView.php'">View All</button>
   </header>
   <div class=" container">
     <form action="controller/submit.php" class="form" method="POST">
@@ -124,7 +124,7 @@ include 'controller/session_data.php';
           </div>
         </div>
         <div class="foot">
-          <h3>Place of Birth</h3>
+          <p class="p1"> <b>Place of Birth</b></p>
 
           <div class="foot1">
             <div class="input">
@@ -155,7 +155,7 @@ include 'controller/session_data.php';
       </div>
 
       <div class="tab">
-        <h3>Home Address</h3>
+        <p class="p1"><b>Home Address</b></p>
         <div class="container_home">
           <div class="left_home">
             <div class="input in_num">
@@ -260,7 +260,7 @@ include 'controller/session_data.php';
       </div>
 
       <div class="tab">
-        <h3>Contact Information</h3>
+        <p class="p1"><b>Contact Information</b></p>
 
         <div class="upper">
           <div class="input">
@@ -291,10 +291,10 @@ include 'controller/session_data.php';
             <span class="error"><?php echo $telephoneInvalid; ?></span>
           </div>
         </div>
-        <h3>Guardian's Information</h3>
+        <p class="p1"><b>Guardian's Information</b></p>
         <div class="guardian">
           <div class="father_info">
-            <h5>Father's Name</h5>
+            <p class="p1"><b>Father's Name</b></p>
             <label for="lastnameFather">Last Name</label><br />
             <input
               type="text"
@@ -322,7 +322,7 @@ include 'controller/session_data.php';
           </div>
 
           <div class="mother_info">
-            <h5>Mother's Maiden Name</h5>
+            <p class="p1"><b>Mother's Maiden Name</b></p>
             <label for="lastnameMother">Last Name</label><br />
             <input
               type="text"

@@ -211,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit();
         }
 
-        header("Location: ../success.php");
+        header("Location: ../views/dataView.php");
         exit();
     } else {
         header("Location: ../index.php");

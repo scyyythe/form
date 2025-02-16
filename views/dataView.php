@@ -6,6 +6,7 @@ require_once '../model/User.php';
 $user = new User($conn);
 $users = $user->getAll();
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +25,7 @@ $users = $user->getAll();
     <p>List of Users</p>
 
     <div class="search">
-      <input type="text" placeholder="Search" />
+      <input type="text" id="searchInput" placeholder="Search by name" onkeyup="searchTable()" />
 
       <div class="image">
         <img src="../image/profile.png" alt="" />
@@ -39,16 +40,19 @@ $users = $user->getAll();
           <p>Total Users <span><?php echo count($users); ?></span></p>
         </div>
         <div class="container">
-          <button class="filter-btn">Filter <i class="bx bx-filter"></i></button>
+          <button class="filter-btn">
+            Sort <span id="sortLabel">A-Z</span> <i class="bx bx-filter"></i>
+          </button>
+
           <button class="add-btn" onclick="window.location.href='../return.php'">Add New <i class="bx bx-message-square-add"></i></button>
         </div>
       </div>
 
       <div class="table-con">
-        <table>
+        <table id="userTable">
           <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th class="sortable" id="nameColumn">Name</th>
             <th>Age</th>
             <th>Gender</th>
             <th>Nationality</th>
@@ -69,7 +73,7 @@ $users = $user->getAll();
             ?>
               <tr>
                 <td><?php echo $data['user_id']; ?></td>
-                <td><?php echo $data['firstname'] . ' ' . $data['lastname']; ?></td>
+                <td class="user-name"><?php echo $data['firstname'] . ' ' . $data['lastname']; ?></td>
                 <td><?php echo $data['age']; ?></td>
                 <td><?php echo $data['sex']; ?></td>
                 <td><?php echo $data['nationality']; ?></td>
