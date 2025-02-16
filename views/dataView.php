@@ -1,0 +1,97 @@
+<?php
+
+require_once '../config/connection.php';
+require_once '../model/User.php';
+
+$user = new User($conn);
+$users = $user->getAll();
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="../image/icons8-users-48.png" />
+  <link rel="stylesheet" href="../css/table.css" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <title>List of Users</title>
+</head>
+
+<body>
+  <header>
+    <p>List of Users</p>
+
+    <div class="search">
+      <input type="text" placeholder="Search" />
+
+      <div class="image">
+        <img src="../image/profile.png" alt="" />
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrapper">
+      <div class="head">
+        <div class="total-con">
+          <p>Total Users <span><?php echo count($users); ?></span></p>
+        </div>
+        <div class="container">
+          <button class="filter-btn">Filter <i class="bx bx-filter"></i></button>
+          <button class="add-btn" onclick="window.location.href='../return.php'">Add New <i class="bx bx-message-square-add"></i></button>
+        </div>
+      </div>
+
+      <div class="table-con">
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Nationality</th>
+            <th>Action</th>
+          </tr>
+
+          <?php
+          if (empty($users)):
+          ?>
+            <tr>
+              <td colspan="6" class="nodata">
+                <p>No data available at the moment.</p>
+              </td>
+            </tr>
+            <?php
+          else:
+            foreach ($users as $data):
+            ?>
+              <tr>
+                <td><?php echo $data['user_id']; ?></td>
+                <td><?php echo $data['firstname'] . ' ' . $data['lastname']; ?></td>
+                <td><?php echo $data['age']; ?></td>
+                <td><?php echo $data['sex']; ?></td>
+                <td><?php echo $data['nationality']; ?></td>
+                <td class="actions">
+                  <button class="find" onclick="window.location.href='../success.php?id=<?php echo $data['user_id']; ?>'"><i class="bx bx-file-find"></i></button>
+                  <button class="edit" onclick="window.location.href='../views/updateView.php?id=<?php echo $data['user_id']; ?>'"><i class="bx bx-edit"></i></button>
+
+                  <button class="delete"><i class="bx bx-trash"></i></button>
+                </td>
+              </tr>
+          <?php
+            endforeach;
+          endif;
+          ?>
+
+
+
+        </table>
+      </div>
+    </div>
+  </main>
+  <script src="../js/main.js"></script>
+</body>
+
+</html>

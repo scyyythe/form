@@ -4,6 +4,7 @@ require '../functions/validation.php';
 require_once '../config/connection.php';
 require_once '../model/User.php';
 require_once '../controller/session_data.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //for validation
     $validationFields = [

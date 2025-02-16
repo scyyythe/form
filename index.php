@@ -14,11 +14,13 @@ include 'controller/session_data.php';
 </head>
 
 <body>
-  <header>
+  <header class="index-head">
     <h1 class="">PERSONAL DATA</h1>
+    <button onclick="window.location.href='views/dataView.php'">View All User</button>
   </header>
-  <div class="container">
+  <div class=" container">
     <form action="controller/submit.php" class="form" method="POST">
+      <input type="hidden" name="id" value="<?= $user['user_id'] ?? '' ?>">
       <div class="tab active first">
         <p class="p1"><b>Fill up your personal information.</b></p>
 

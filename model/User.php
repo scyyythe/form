@@ -53,6 +53,7 @@ class User
         $this->bindValues($statement, $data);
         $statement->execute();
 
+
         //contancts
         $contactQuery = "INSERT INTO contacts (user_id, mobile, email, telephone) 
                          VALUES (:user_id, :mobile, :email, :telephone)";
@@ -68,5 +69,58 @@ class User
         $statement->execute();
 
         return true;
+    }
+
+    public function getAll()
+    {
+        $dataQuery = "SELECT users.user_id, users.firstname, users.lastname, users.middle, users.dob,users.age, users.sex, users.civil_status, users.other_status, users.tax, users.nationality, users.religion,
+        
+        ad.unit, ad.house_no, ad.street, ad.subdivision, ad.baranggay, ad.city_municipality, ad.province_home, ad.country, ad.zip, 
+         
+        birth.city, birth.municipality_birth, birth.province_birth,
+
+        contacts.mobile, contacts.email, contacts.telephone,
+        
+        parents.father_lastname, parents.father_firstname, parents.father_middleinitial, parents.mother_lastname, parents.mother_firstname, parents.mother_middleinitial
+        
+        FROM users 
+        LEFT JOIN addresses ad ON users.user_id = ad.user_id
+        LEFT JOIN birth_place birth ON users.user_id = birth.user_id
+        LEFT JOIN contacts ON users.user_id = contacts.user_id
+        LEFT JOIN parents ON users.user_id = parents.user_id";
+
+        $statement = $this->conn->prepare($dataQuery);
+        if (!$statement->execute()) {
+            print_r($statement->errorInfo());
+            exit();
+        }
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public function getUserDetails($user_id)
+    {
+        $query = "SELECT users.user_id, users.firstname, users.lastname, users.middle, users.dob, users.age, users.sex, users.civil_status, users.other_status, users.tax, users.nationality, users.religion,
+        
+        ad.unit, ad.house_no, ad.street, ad.subdivision, ad.baranggay, ad.city_municipality, ad.province_home, ad.country, ad.zip, 
+         
+        birth.city, birth.municipality_birth, birth.province_birth,
+    
+        contacts.mobile, contacts.email, contacts.telephone,
+        
+        parents.father_lastname, parents.father_firstname, parents.father_middleinitial, parents.mother_lastname, parents.mother_firstname, parents.mother_middleinitial
+        
+        FROM users 
+        LEFT JOIN addresses ad ON users.user_id = ad.user_id
+        LEFT JOIN birth_place birth ON users.user_id = birth.user_id
+        LEFT JOIN contacts ON users.user_id = contacts.user_id
+        LEFT JOIN parents ON users.user_id = parents.user_id
+        WHERE users.user_id = :user_id";
+
+        $statement = $this->conn->prepare($query);
+        $statement->bindParam(':user_id', $user_id);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 }

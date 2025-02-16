@@ -1,6 +1,12 @@
 <?php
+require_once 'config/connection.php';
+require_once 'model/User.php';
 
-include 'controller/session_data.php';
+if (isset($_GET['id'])) {
+  $user_id = $_GET['id'];
+  $user = new User($conn);
+  $data = $user->getUserDetails($user_id);
+}
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +22,7 @@ include 'controller/session_data.php';
 
 <body style="background-color: rgba(200, 228, 255, 0.13)">
   <header>
-    <div class="header-success">
+    <div class="header-success" style="margin-inline:auto;">
       <h3>Dashboard</h3>
       <h3>Personal Settings</h3>
     </div>
@@ -33,39 +39,25 @@ include 'controller/session_data.php';
 
         <div class="card-info">
           <label for="name">Name</label><br />
-          <input type="text" value="<?php echo $firstname . ' ' . strtoupper(substr($middle, 0, 1)) . '. ' . $lastname; ?>" readonly />
+          <input type="text" value="<?php echo $data['firstname'] . ' ' . strtoupper(substr($data['middle'], 0, 1)) . '. ' . $data['lastname'] ?>" readonly />
         </div>
-
-        <?php
-        $formattedDate = date('F j, Y', strtotime($date));
-        $birthDate = new DateTime($date);
-        $today = new DateTime('today');
-        $age = $birthDate->diff($today)->y;
-        ?>
 
         <div class="card-info">
           <br /><label for="date">Date of Birth</label><br />
-          <input type="text" value="<?php echo $formattedDate; ?>" readonly />
+          <input type="text" value="<?php echo date('F d, Y', strtotime($data['dob'])); ?>" readonly />
         </div>
 
         <div class="card-info">
           <br /><label for="age">Age</label><br />
-          <input type="text" value="<?php echo $age . ' years old'; ?>" readonly />
+          <input type="text" value="<?php echo $data['age'] . ' years old'; ?>" readonly />
         </div>
 
         <div class="card-info">
           <br /><label for="status">Civil Status</label><br />
           <input type="text"
-            value="<?php
-                    if ($civilStatus === 'others' && !empty($otherStatus)) {
-                      echo $otherStatus;
-                    } else {
-                      echo $civilStatus;
-                    }
-                    ?>"
+            value="<?php echo ($data['civil_status'] === 'others' && !empty($data['other_status'])) ? $data['other_status'] : $data['civil_status']; ?>"
             readonly />
         </div>
-
 
         <div class="info-icon">
           <img src="image/info.png" alt="information" />
@@ -73,33 +65,29 @@ include 'controller/session_data.php';
       </div>
     </section>
 
-    <section>
+    <section class="center-section">
       <div class="board2">
         <div class="card-info">
           <label for="sex">Gender</label><br />
-          <input type="text" value="<?php echo $sex ?>" readonly />
+          <input type="text" value="<?php echo $data['sex']; ?>" readonly />
         </div>
 
         <div class="card-info">
           <label for="nationality">Nationality</label><br />
-          <input type="text" value="<?php echo $nationality ?>" readonly />
+          <input type="text" value="<?php echo $data['nationality']; ?>" readonly />
         </div>
 
         <div class="card-info">
           <label for="religion">Religion</label><br />
-          <input type="text" value="<?php echo $religion ?>" readonly />
+          <input type="text" value="<?php echo $data['religion']; ?>" readonly />
         </div>
 
         <div class="card-info">
           <label for="tax">Tax Identification Number</label><br />
-          <input type="text" value="<?php echo $tax; ?>" readonly />
+          <input type="text" value="<?php echo $data['tax']; ?>" readonly />
         </div>
       </div>
 
-      <!-- <div class="infos">
-  <p>RM/FLR/Unit No. & House/Lot & Blk. No., Street Name, Barangay/District/Locality, City/Municipality, Province</p>
-</div>
- -->
       <div class="home-add-card">
         <div class="head-home-add">
           <h5>Home Address</h5>
@@ -107,21 +95,21 @@ include 'controller/session_data.php';
 
         <div class="infos">
           <img src="image/home.png" alt="home" />
-          <small><?php echo $houseNo . ', ' . $street . ', ' . $baranggay . ', ' . $cityMunicipality . ', ' . $province_home; ?></small>
+          <small><?php echo $data['house_no'] . ', ' . $data['street'] . ', ' . $data['baranggay'] . ', ' . $data['city_municipality'] . ', ' . $data['province_home']; ?></small>
         </div>
         <br />
         <div class="infos2">
           <div class="card-info2">
             <label for="subdivision">Subdivision</label><br />
-            <input type="text" value="<?php echo $subdivision; ?>" readonly />
+            <input type="text" value="<?php echo $data['subdivision']; ?>" readonly />
           </div>
           <div class="card-info2">
             <label for="country">Country</label><br />
-            <input type="text" value="<?php echo $country; ?>" readonly />
+            <input type="text" value="<?php echo $data['country']; ?>" readonly />
           </div>
           <div class="card-info2">
             <label for="zip">Zip Code</label><br />
-            <input type="text" value="<?php echo $zip; ?>" readonly />
+            <input type="text" value="<?php echo $data['zip']; ?>" readonly />
           </div>
         </div>
 
@@ -129,23 +117,24 @@ include 'controller/session_data.php';
           <h5>Place of Birth</h5>
           <div class="birth">
             <img src="image/home.png" alt="home" />
-            <small>Born in <?php echo $municipality_birth . ', ' . $province_birth . ', ' . $city; ?></small>
+            <small>Born in <?php echo $data['municipality_birth'] . ', ' . $data['province_birth'] . ', ' . $data['city']; ?></small>
           </div>
         </div>
       </div>
+
       <div class="guardians-display">
         <h5>Parent's Information</h5>
         <div class="guardian-info">
           <div class="mother-info-display">
             <div class="card-info2">
               <label for="mother">Mother's Name</label><br />
-              <input type="text" value="Lorecris Dular Ibalarrosa" readonly />
+              <input type="text" value="<?php echo $data['mother_firstname'] . ' ' . $data['mother_middleinitial'] . '. ' . $data['mother_lastname']; ?>" readonly />
             </div>
           </div>
           <div class="father-info-display">
             <div class="card-info2">
               <label for="father">Father's Name</label><br />
-              <input type="text" value="Armando Zafra Canete" readonly />
+              <input type="text" value="<?php echo $data['father_firstname'] . ' ' . $data['father_middleinitial'] . '. ' . $data['father_lastname']; ?>" readonly />
             </div>
           </div>
         </div>
@@ -161,25 +150,22 @@ include 'controller/session_data.php';
 
         <div class="card-info">
           <label for="cellphone">Cellphone</label><br />
-          <input type="text" value="<?php echo $mobile; ?>" readonly />
+          <input type="text" value="<?php echo $data['mobile']; ?>" readonly />
         </div>
         <div class="card-info">
           <br /><label for="email">Email Address</label><br />
-          <input type="text" value="<?php echo $email; ?>" readonly />
+          <input type="text" value="<?php echo $data['email']; ?>" readonly />
         </div>
         <div class="card-info">
           <br /><label for="telephone">Telephone</label><br />
-          <input type="text" value="<?php echo $telephone; ?>" readonly />
+          <input type="text" value="<?php echo $data['telephone']; ?>" readonly />
         </div>
       </div>
 
       <div class="btn2">
-        <button onclick="window.location.href='return.php'">Return</button>
-        <button>Update Information</button>
+        <button onclick="window.location.href='views/dataView.php'">Return</button>
       </div>
     </section>
-
-
 
   </div>
 

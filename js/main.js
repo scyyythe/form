@@ -34,3 +34,20 @@ let currentTab = 0;
     }
 
     
+    //table
+    document.addEventListener("DOMContentLoaded", function () {
+      const tableRows = document.querySelectorAll("tr");
+  
+      tableRows.forEach(tr => {
+          tr.addEventListener("click", function (event) {
+              event.stopPropagation();
+              tableRows.forEach(row => row.classList.remove("selected"));
+              this.classList.add("selected");
+          });
+      });
+  
+      document.addEventListener("click", function () {
+          tableRows.forEach(row => row.classList.remove("selected"));
+      });
+  });
+  
