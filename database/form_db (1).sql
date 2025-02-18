@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2025 at 03:51 PM
+-- Generation Time: Feb 18, 2025 at 05:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -50,7 +50,13 @@ CREATE TABLE `addresses` (
 CREATE TABLE `birth_place` (
   `birth_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `city` varchar(100) NOT NULL,
+  `b_unit` varchar(100) NOT NULL,
+  `b_house` varchar(255) NOT NULL,
+  `b_street` varchar(100) NOT NULL,
+  `b_subdivision` varchar(100) NOT NULL,
+  `b_baranggay` varchar(100) NOT NULL,
+  `b_country` varchar(100) NOT NULL,
+  `b_zip` int(50) NOT NULL,
   `municipality_birth` varchar(100) NOT NULL,
   `province_birth` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -154,31 +160,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `birth_place`
 --
 ALTER TABLE `birth_place`
-  MODIFY `birth_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `birth_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `contact_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `contact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `parents`
 --
 ALTER TABLE `parents`
-  MODIFY `parent_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `parent_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- Constraints for dumped tables
