@@ -22,7 +22,7 @@ include 'controller/session_data.php';
     <form action="controller/submit.php" class="form" method="POST">
       <input type="hidden" name="id" value="<?= $user['user_id'] ?? '' ?>">
       <div class="tab active first">
-        <p class="p1"><b>Fill up your personal information.</b></p>
+        <p class="p1"><b>General Information</b></p>
 
 
         <div class="upper">
@@ -123,41 +123,101 @@ include 'controller/session_data.php';
             <span class="error"><?php echo $religionInvalid; ?></span>
           </div>
         </div>
-        <div class="foot">
-          <p class="p1"> <b>Place of Birth</b></p>
-
-          <div class="foot1">
-            <div class="input">
-              <label for="city">City</label><br />
-              <input class="input5" type="text" name="city" value="<?php echo $city ?>" placeholder="e.g., Cebu City" /><br>
-              <span class="error"><?php echo $cityInvalid; ?></span>
-            </div>
-
-            <div class="input">
-              <label for="municipality_birth">Municipality</label><br />
-              <input class="input5" type="text" name="municipality_birth" value="<?php echo $municipality_birth ?>" placeholder="e.g., Cebu" /><br>
-              <span class="error"><?php echo $municipalityInvalid; ?></span>
-            </div>
-          </div>
-
-          <div class="foot2">
-            <div class="input">
-              <label for="province_birth">Province</label><br />
-              <input type="text" name="province_birth" value="<?php echo $province_birth ?>" placeholder="e.g., Cebu" /><br>
-              <span class="error"><?php echo $provinceInvalid; ?></span>
-            </div>
-
-            <div class="buttons">
-              <button type="button" onclick="nextTab()">&#8594;</button>
-            </div>
-          </div>
+        <div class="buttons">
+          <button type="button" onclick="nextTab()">&#8594;</button>
         </div>
       </div>
 
       <div class="tab">
-        <p class="p1"><b>Home Address</b></p>
-        <div class="container_home">
-          <div class="left_home">
+        <div class="foot">
+          <p class="p1"> <b>Place of Birth</b></p>
+
+          <div class="top-birth">
+            <div class="input">
+              <label for="birth_unit">RM/FLR/Unit No. & Bldg. Name</label><br />
+              <input class="input5" type="text" name="birth_unit" value="<?php echo $birth_unit ?>" placeholder="e.g., 1234 Unit Bldg." /><br>
+              <span class="error"><?php echo $birth_unitInvalid; ?></span>
+            </div>
+
+            <div class="input">
+              <label for="birth_house">House/Lot & Blk. No</label><br />
+              <input class="input5" type="text" name="birth_house" value="<?php echo $birth_house ?>" placeholder="e.g., 5678 Block 9" /><br>
+              <span class="error"><?php echo $birth_houseInvalid; ?></span>
+            </div>
+
+            <div class="input">
+              <label for="birth_street">Street Name</label><br />
+              <input class="input5" type="text" name="birth_street" value="<?php echo $birth_street ?>" placeholder="e.g., Main Street" /><br>
+              <span class="error"><?php echo $birth_streetInvalid; ?></span>
+            </div>
+          </div>
+
+          <div class="top-birth">
+            <div class="input">
+              <label for="birth_subdivision">Subdivision</label><br />
+              <input class="input5" type="text" name="birth_subdivision" value="<?php echo $birth_subdivision ?>" placeholder="e.g., Sunshine Subdivision" /><br>
+              <span class="error"><?php echo $birth_subdivisionInvalid; ?></span>
+            </div>
+
+            <div class="input">
+              <label for="birth_baranggay">Barangay/District/Locality</label><br />
+              <input type="text" name="birth_baranggay" value="<?php echo $birth_baranggay ?>" placeholder="e.g., Tunghaan" /><br>
+              <span class="error"><?php echo $birth_baranggayInvalid; ?></span>
+            </div>
+
+            <div class="input">
+              <label for="municipality_birth">City/Municipality</label><br />
+              <input class="input5" type="text" name="municipality_birth" value="<?php echo $municipality_birth ?>" placeholder="e.g., Minglanilla" /><br>
+              <span class="error"><?php echo $municipalityInvalid; ?></span>
+            </div>
+          </div>
+
+          <div class="top-birth">
+
+            <div class="input">
+              <label for="province_birth">Province</label><br />
+              <input type="text" name="province_birth" value="<?php echo $province_birth ?>" placeholder="e.g.,Cebu Province" /><br>
+              <span class="error"><?php echo $provinceInvalid; ?></span>
+            </div>
+
+            <?php
+            $countriesData = file_get_contents("countries.json");
+            $countries = json_decode($countriesData, true);
+            ?>
+
+            <div class="input">
+              <label for="birth_country">Country</label><br />
+              <select name="birth_country">
+                <option value="">Select a country</option>
+                <?php
+                foreach ($countries as $birth_country) {
+                  echo "<option value='$birth_country'" . ($birth_country === $selectedBirthCountry ? " selected" : "") . ">$birth_country</option>";
+                }
+                ?>
+              </select><br />
+              <span class="error"><?php echo $birth_countryInvalid; ?></span>
+            </div>
+
+            <div class="input">
+              <label for="birth_zip">Zip Code</label><br />
+              <input type="text" name="birth_zip" value="<?php echo $birth_zip ?>" placeholder="e.g., 6046" /><br>
+              <span class="error"><?php echo $birth_zipInvalid; ?></span>
+            </div>
+
+          </div>
+          <div class="buttons home_button">
+            <button type="button" onclick="prevTab()">&#8592;</button>
+            <button type="button" onclick="nextTab()">&#8594;</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="tab">
+        <div class="foot">
+          <p class="p1"> <b>Home Address</b></p>
+
+          <div class="top-birth">
             <div class="input in_num">
               <label for="unit">RM/FLR/Unit No. & Bldg. Name</label><br />
               <input
@@ -167,6 +227,7 @@ include 'controller/session_data.php';
                 placeholder="e.g., 1234 Unit Bldg." /><br />
               <span class="error"><?php echo $unitInvalid; ?></span>
             </div>
+
             <div class="input in_num">
               <label for="houseNo">House/Lot & Blk. No</label><br />
               <input
@@ -186,6 +247,9 @@ include 'controller/session_data.php';
                 placeholder="e.g., Main Street" /><br />
               <span class="error"><?php echo $streetInvalid; ?></span>
             </div>
+          </div>
+
+          <div class="top-birth">
             <div class="input">
               <label for="subdivision">Subdivision</label><br />
               <input
@@ -198,34 +262,25 @@ include 'controller/session_data.php';
 
             <div class="input">
               <label for="baranggay">Barangay/District/Locality</label><br />
-              <input
-                type="text"
-                name="baranggay"
-                value="<?php echo $baranggay ?>"
-                placeholder="e.g., Poblacion" /><br />
+              <input type="text" name="baranggay" value="<?php echo $baranggay ?>" placeholder="e.g., Tunghaan" /><br>
               <span class="error"><?php echo $baranggayInvalid; ?></span>
+            </div>
+
+            <div class="input">
+              <label for="cityMunicipality">City/Municipality</label><br />
+              <input class="input5" type="text" name="cityMunicipality" value="<?php echo $cityMunicipality ?>" placeholder="e.g., Minglanilla" /><br>
+              <span class="error"><?php echo $cityMunicipalityInvalid; ?></span>
             </div>
           </div>
 
-          <div class="right_home">
-            <div class="input">
-              <label for="cityMunicipality">City/Municipality</label><br />
-              <input
-                type="text"
-                name="cityMunicipality"
-                value="<?php echo $cityMunicipality ?>"
-                placeholder="e.g., Minglanilla" /><br />
-              <span class="error"><?php echo $cityMunicipalityInvalid; ?></span>
-            </div>
+          <div class="top-birth">
+
             <div class="input">
               <label for="province_home">Province</label><br />
-              <input
-                type="text"
-                name="province_home"
-                value="<?php echo $province_home ?>"
-                placeholder="e.g., Cebu" /><br />
-              <span class="error"><?php echo $province_homeInvalid; ?></span>
+              <input type="text" name="province_home" value="<?php echo $province_home ?>" placeholder="e.g., Cebu Province" /><br>
+              <span class="error"><?php echo $provinceInvalid; ?></span>
             </div>
+
             <?php
             $countriesData = file_get_contents("countries.json");
             $countries = json_decode($countriesData, true);
@@ -237,7 +292,7 @@ include 'controller/session_data.php';
                 <option value="">Select a country</option>
                 <?php
                 foreach ($countries as $country) {
-                  echo "<option value='$country'" . ($country === $selectedCountry ? " selected" : "") . ">$country</option>";
+                  echo "<option value='$country'" . ($country === $selectedHomeCountry ? " selected" : "") . ">$country</option>";
                 }
                 ?>
               </select><br />
@@ -247,17 +302,18 @@ include 'controller/session_data.php';
 
             <div class="input">
               <label for="zip">Zip Code</label><br />
-              <input type="text" name="zip" placeholder="e.g., 6046" value="<?php echo $zip ?>" /><br />
+              <input type="text" name="zip" value="<?php echo $zip ?>" placeholder="e.g., Cebu" /><br>
               <span class="error"><?php echo $zipInvalid; ?></span>
             </div>
 
-            <div class="buttons home_button">
-              <button type="button" onclick="prevTab()">&#8592;</button>
-              <button type="button" onclick="nextTab()">&#8594;</button>
-            </div>
+          </div>
+          <div class="buttons home_button">
+            <button type="button" onclick="prevTab()">&#8592;</button>
+            <button type="button" onclick="nextTab()">&#8594;</button>
           </div>
         </div>
       </div>
+
 
       <div class="tab">
         <p class="p1"><b>Contact Information</b></p>
@@ -287,7 +343,7 @@ include 'controller/session_data.php';
               type="text"
               name="telephone"
               value="<?php echo $telephone ?>"
-              placeholder="e.g., (032) 123-4567" /><br />
+              placeholder="e.g., +1 (746) 672-4801" /><br />
             <span class="error"><?php echo $telephoneInvalid; ?></span>
           </div>
         </div>

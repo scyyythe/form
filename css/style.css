@@ -100,9 +100,15 @@ label{
   }
   
 .container{
+  margin-top: 1rem;
+  border-style: none;
     max-width: 1500px;
     margin-inline: auto;
     margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    padding-inline:1rem ;
+    background-color: #faf6ff;
 }
 .form{
     margin-inline: auto;
@@ -271,6 +277,7 @@ label{
 .container_home{
     max-width: 1500px;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     gap: 1.5rem; 
    
@@ -548,7 +555,7 @@ small{
 
 .btn2 button {
   padding: 5px 20px;
-  background-color: #9B7EBD;
+  background-color:  #9B7EBD;
   color: white;
   border: none;
   border-radius: 5px;
@@ -596,4 +603,9 @@ small{
 .update-con i:hover{
   color: #3B1E54;
   cursor: pointer;
+}
+
+.top-birth{
+  display: flex;
+  margin-block: 2rem;
 }

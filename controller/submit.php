@@ -6,6 +6,10 @@ require_once '../model/User.php';
 require_once '../controller/session_data.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // print_r($_POST);
+    // exit;
+
+
     //for validation
     $validationFields = [
         'lastnameInvalid',
@@ -18,19 +22,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'taxInvalid',
         'nationalityInvalid',
         'religionInvalid',
-        'cityInvalid',
-        'municipalityInvalid',
-        'provinceInvalid',
 
-        'unitInvalid',
-        'houseNoInvalid',
-        'streetInvalid',
-        'subdivisionInvalid',
-        'baranggayInvalid',
-        'cityMunicipalityInvalid',
-        'province_homeInvalid',
-        'countryInvalid',
-        'zipInvalid',
+        "birth_unitInvalid",
+        "birth_houseInvalid",
+        "birth_streetInvalid",
+        "birth_subdivisionInvalid",
+        "birth_baranggayInvalid",
+        "municipalityInvalid",
+        "provinceInvalid",
+        "birth_countryInvalid",
+        "birth_zipInvalid",
+
+        "unitInvalid",
+        "houseNoInvalid",
+        "streetInvalid",
+        "subdivisionInvalid",
+        "baranggayInvalid",
+        "cityMunicipalityInvalid",
+        "province_homeInvalid",
+        "countryInvalid",
+        "zipInvalid",
 
         'mobileInvalid',
         'emailInvalid',
@@ -65,19 +76,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'nationality',
         'religion',
 
-        'city',
-        'municipality_birth',
-        'province_birth',
 
-        'unit',
-        'houseNo',
-        'street',
-        'subdivision',
-        'baranggay',
-        'cityMunicipality',
-        'province_home',
-        'country',
-        'zip',
+        "birth_unit",
+        "birth_house",
+        "birth_street",
+        "birth_subdivision",
+        "birth_baranggay",
+        "municipality_birth",
+        "province_birth",
+        "birth_country",
+        "birth_zip",
+
+        "unit",
+        "houseNo",
+        "street",
+        "subdivision",
+        "baranggay",
+        "cityMunicipality",
+        "province_home",
+        "country",
+        "zip",
 
         'mobile',
         'email',
@@ -96,6 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     foreach ($dataFields as $field) {
         $_SESSION[$field] = trim($_POST[$field]);
     }
+
 
     // my name
     validateNameField('lastname', 'lastnameInvalid', 'Last name is required!', $valid);
@@ -130,9 +149,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // tax validation
     validateTax('tax', 'taxInvalid', $valid);
 
+    //place of birth
+
+    validateNameField('province_birth', 'provinceInvalid', 'Province is required!', $valid);
+    validateTextInput('birth_unit', 'birth_unitInvalid', 'Unit is required!', $valid);
+    validateTextInput('birth_house', 'birth_houseInvalid', 'House number is required!', $valid);
+    validateNameField('birth_street', 'birth_streetInvalid', 'Street name is required!', $valid);
+    validateNameField('birth_subdivision', 'birth_subdivisionInvalid', 'Subdivision name is required!', $valid);
+    validateNameField('birth_baranggay', 'birth_baranggayInvalid', 'Baranggay name is required!', $valid);
+    validateNameField('municipality_birth', 'municipalityInvalid', 'City/Municipality is required!', $valid);
+    validateNameField('province_birth', 'provinceInvalid', 'Province (home) is required!', $valid);
+    validateNameField('birth_country', 'birth_countryInvalid', 'Country is required!', $valid);
+
+
     // address
-    validateNameField('city', 'cityInvalid', 'City is required!', $valid);
-    validateNameField('municipality_birth', 'municipalityInvalid', 'Municipality is required!', $valid);
     validateNameField('province_birth', 'provinceInvalid', 'Province is required!', $valid);
     validateTextInput('unit', 'unitInvalid', 'Unit is required!', $valid);
     validateTextInput('houseNo', 'houseNoInvalid', 'House number is required!', $valid);
@@ -146,9 +176,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // number only
     validateNumeric('zip', 'zipInvalid', 'Zip code is required!', $valid);
+    validateNumeric('birth_zip', 'birth_zipInvalid', 'Zip code is required!', $valid);
     validateNumeric('mobile', 'mobileInvalid', 'Mobile number is required!', $valid);
     validateEmail('email', 'emailInvalid', $valid);
-    validateNumeric('telephone', 'telephoneInvalid', 'Telephone number is required!', $valid);
+    validateTelephone('telephone', 'telephoneInvalid', 'Telephone number is required!', $valid);
 
     function calculateAge($dob)
     {
@@ -174,9 +205,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             "tax" => "tax",
             "nationality" => "nationality",
             "religion" => "religion",
-            "city" => "city",
+
+            "b_unit" => "birth_unit",
+            "b_house" => "birth_house",
+            "b_subdivision" => "birth_subdivision",
+            "b_baranggay" => "birth_baranggay",
             "municipality_birth" => "municipality_birth",
             "province_birth" => "province_birth",
+            "b_country" => "birth_country",
+            "b_zip" => "birth_zip",
+            "b_street" => "birth_street",
+
             "unit" => "unit",
             "house_no" => "houseNo",
             "street" => "street",
@@ -186,6 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             "province_home" => "province_home",
             "country" => "country",
             "zip" => "zip",
+
             "mobile" => "mobile",
             "email" => "email",
             "telephone" => "telephone",
@@ -215,6 +255,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     } else {
         header("Location: ../index.php");
+
         exit();
     }
 } else {

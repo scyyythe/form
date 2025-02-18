@@ -46,12 +46,6 @@ class User
         $statement->execute();
 
 
-        //birth
-        $birthPlaceQuery = "INSERT INTO birth_place (user_id, city, municipality_birth, province_birth)
-                            VALUES (:user_id, :city, :municipality_birth, :province_birth)";
-        $statement = $this->conn->prepare($birthPlaceQuery);
-        $this->bindValues($statement, $data);
-        $statement->execute();
 
 
         //contancts
@@ -68,6 +62,17 @@ class User
         $this->bindValues($statement, $data);
         $statement->execute();
 
+
+        //birth
+        $birthPlaceQuery = "INSERT INTO birth_place (user_id, b_unit, b_house, b_street, b_subdivision, b_baranggay, b_country, b_zip, municipality_birth, province_birth)
+          VALUES (:user_id, :b_unit, :b_house, :b_street, :b_subdivision, :b_baranggay, :b_country, :b_zip,:municipality_birth, :province_birth)";
+        $statement = $this->conn->prepare($birthPlaceQuery);
+        $this->bindValues($statement, $data);
+        echo $birthPlaceQuery;
+        print_r($data);  // Display the array of data being passed
+
+        $statement->execute();
+
         return true;
     }
 
@@ -77,7 +82,7 @@ class User
         
         ad.unit, ad.house_no, ad.street, ad.subdivision, ad.baranggay, ad.city_municipality, ad.province_home, ad.country, ad.zip, 
          
-        birth.city, birth.municipality_birth, birth.province_birth,
+         birth.municipality_birth, birth.province_birth,
 
         contacts.mobile, contacts.email, contacts.telephone,
         

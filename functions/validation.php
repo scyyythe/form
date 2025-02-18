@@ -24,11 +24,13 @@ function validateNameField($fieldName, $validationSession, $errorMessage, &$vali
 function validateMiddleInitial($fieldName, $validationSession, &$valid)
 {
     validateRequiredField($fieldName, $validationSession, 'Middle Initial is required', $valid);
-    if ($valid && !preg_match("/^[A-Z]$|^[A-Z]\.$/", $_POST[$fieldName])) {
+
+    if ($valid && !preg_match("/^[A-Z](\.)?$/", $_POST[$fieldName])) {
         $_SESSION[$validationSession] = 'Middle initial should be a single uppercase letter, optionally followed by a period.';
         $valid = false;
     }
 }
+
 
 // validaiton age (18 up dapat)
 function validateDateOfBirth($fieldName, $validationSession, &$valid)
@@ -97,6 +99,16 @@ function validateNumeric($fieldName, $validationSession, $errorMessage, &$valid)
     validateRequiredField($fieldName, $validationSession, $errorMessage, $valid);
     if ($valid && !isNumber($_POST[$fieldName])) {
         $_SESSION[$validationSession] = 'Must be numeric!';
+        $valid = false;
+    }
+}
+
+function validateTelephone($fieldName, $validationSession, $errorMessage, &$valid)
+{
+
+    validateRequiredField($fieldName, $validationSession, $errorMessage, $valid);
+    if ($valid && !preg_match("/^\+1 \(\d{3}\) \d{3}-\d{4}$/", $_POST[$fieldName])) {
+        $_SESSION[$validationSession] = 'Telephone number must be in the format: +1 (746) 672-4801';
         $valid = false;
     }
 }
