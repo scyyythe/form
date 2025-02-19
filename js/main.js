@@ -89,3 +89,6 @@ let currentTab = 0;
         }
     }
 }
+
+
+//progress bar

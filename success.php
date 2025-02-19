@@ -17,11 +17,16 @@ if (isset($_GET['id'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="image/icons8-male-user-30.png" />
   <link rel="stylesheet" href="css/style.css" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <title>Personal Information</title>
 </head>
 
 <body style="background-color: rgba(200, 228, 255, 0.13)">
+
   <header>
+    <div class="back2">
+      <button onclick="window.location.href='views/dataView.php'"><i class='bx bx-chevron-left'></i></button>
+    </div>
     <div class="header-success" style="margin-inline:auto;">
       <h3>Dashboard</h3>
       <h3>Personal Settings</h3>
@@ -113,32 +118,34 @@ if (isset($_GET['id'])) {
           </div>
         </div>
 
+      </div>
+
+
+      <div class="home-add-card">
+
         <div class="birthplace-card">
           <h5>Place of Birth</h5>
           <div class="birth">
             <img src="image/home.png" alt="home" />
-            <small>Born in <?php echo $data['municipality_birth'] . ', ' . $data['province_birth'] . ', ' . $data['city']; ?></small>
+            <small>Born in <?php echo $data['b_house'] . ', ' . $data['b_street'] . ', ' . $data['b_baranggay'] . ', ' . $data['municipality_birth'] . ', ' . $data['province_home']; ?></small>
+          </div>
+        </div>
+        <div class="infos2">
+          <div class="card-info2">
+            <label for="subdivision">Subdivision</label><br />
+            <input type="text" value="<?php echo $data['b_subdivision']; ?>" readonly />
+          </div>
+          <div class="card-info2">
+            <label for="country">Country</label><br />
+            <input type="text" value="<?php echo $data['b_country']; ?>" readonly />
+          </div>
+          <div class="card-info2">
+            <label for="zip">Zip Code</label><br />
+            <input type="text" value="<?php echo $data['b_zip']; ?>" readonly />
           </div>
         </div>
       </div>
 
-      <div class="guardians-display">
-        <h5>Parent's Information</h5>
-        <div class="guardian-info">
-          <div class="mother-info-display">
-            <div class="card-info2">
-              <label for="mother">Mother's Name</label><br />
-              <input type="text" value="<?php echo $data['mother_firstname'] . ' ' . $data['mother_middleinitial'] . '. ' . $data['mother_lastname']; ?>" readonly />
-            </div>
-          </div>
-          <div class="father-info-display">
-            <div class="card-info2">
-              <label for="father">Father's Name</label><br />
-              <input type="text" value="<?php echo $data['father_firstname'] . ' ' . $data['father_middleinitial'] . '. ' . $data['father_lastname']; ?>" readonly />
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <section class="contactinfo">
@@ -161,10 +168,25 @@ if (isset($_GET['id'])) {
           <input type="text" value="<?php echo $data['telephone']; ?>" readonly />
         </div>
       </div>
-
-      <div class="btn2">
-        <button onclick="window.location.href='views/dataView.php'">Return</button>
+      <div class="guardians-display">
+        <h5>Parent's Information</h5>
+        <div class="guardian-info">
+          <div class="mother-info-display">
+            <div class="card-info3">
+              <label for="mother">Mother's Name</label><br />
+              <input type="text" value="<?php echo $data['mother_firstname'] . ' ' . $data['mother_middleinitial'] . '. ' . $data['mother_lastname']; ?>" readonly />
+            </div>
+          </div>
+          <div class="father-info-display">
+            <div class="card-info3">
+              <label for="father">Father's Name</label><br />
+              <input type="text" value="<?php echo $data['father_firstname'] . ' ' . $data['father_middleinitial'] . '. ' . $data['father_lastname']; ?>" readonly />
+            </div>
+          </div>
+        </div>
       </div>
+
+
     </section>
 
   </div>

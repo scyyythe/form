@@ -29,10 +29,11 @@ input {
    border-width: 1px; 
     box-sizing: border-box;
     font-size: 13px;
-    outline: none;
+    outline-color: rgb(38, 0, 82);
+    border: none;
     margin-top: 10px;
-    border-color: rgba(200, 228, 255, 0.959);;
-   
+    border-color: rgba(210, 196, 233, 0.959);;
+    background-color: rgba(255, 255, 255, 0.959)
 }
 
 input[type="date"] {
@@ -44,12 +45,12 @@ select{
       padding: 10px;
    border-radius:5px;
    border-width: 1px; 
+   border: none;
     box-sizing: border-box;
-    font-size: 13px;
     outline: none;
     margin-top: 10px;
     border-color: rgba(200, 228, 255, 0.959);;
-   
+   color: rgb(88, 87, 87);
 }
 
 label{
@@ -103,13 +104,28 @@ label{
   margin-top: 1rem;
   border-style: none;
     max-width: 1500px;
-    margin-inline: auto;
+    margin-inline: 2rem;
     margin-bottom: 2rem;
     padding: 1rem;
     border-radius: 1rem;
     padding-inline:1rem ;
-    background-color: #faf6ff;
+
 }
+.progress-container {
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  height: 20px;
+  background-color: #4caf50;
+  width: 0%;
+  border-radius: 5px;
+  transition: width 0.4s ease;
+}
+
 .form{
     margin-inline: auto;
     width: 90%;  
@@ -136,11 +152,12 @@ label{
     text-align: center;
     float: right;
     width: 5%;
+    margin-bottom: 1rem;
     display: flex;
     justify-content: space-between;
 }
 .button2{
-    width: 12%;
+    width: 15%;
     margin-bottom: 1rem;
 }
 .buttons button {
@@ -270,7 +287,8 @@ label{
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    margin-top: 10px;
+    margin-top: 1rem;
+
   }
 
 
@@ -292,9 +310,11 @@ label{
  
 }
 .home_button{
-    width: 12%;
+    width: 7%;
     position: relative;
-    right: 30%;
+    right: 5%;
+   
+    margin-bottom: 1rem;
 }
 .right_home{
     width: 50%;
@@ -376,8 +396,10 @@ label{
   
 }
 .center-section{
-
   width: 55%;
+}
+.center-section input{
+  background-color: transparent !important;
 }
 .board2 {
   flex: 2;
@@ -397,15 +419,18 @@ label{
   flex: 1;
   max-width: 15em;
   min-width: 12em;
-  padding: 1.5rem;
+  padding-block: 1rem;
+  padding-inline: 1.5rem;
   background-color: white;
   border-radius: 1rem;
   margin-left: 1rem;
 }
-
+.board3 input{
+  background-color: transparent !important;
+}
 .home-add-card {
   flex: 1 1 100%;
-  padding-bottom: 1rem;
+  padding-block: 1rem;
   padding-inline: 2rem;
   background-color: white;
   border-radius: 1rem;
@@ -420,18 +445,21 @@ label{
   font-size: 13px;
 }
 .guardians-display{
-  flex: 1 1 100%;
+
   padding-block: 5px;
-  padding-inline: 2rem;
+  padding-inline: 1rem;
   background-color: white;
   border-radius: 1rem;
   margin-top: 1rem;
-  align-self: flex-start; 
-  width: 95%;
+  flex-direction: column;
+  position: relative;
+  left: 7%;
+  width: 80%;
   
 }
 .guardian-info{
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   position: relative;
   bottom: 1rem;
@@ -499,9 +527,15 @@ small{
 
 .card-info input{
   width: 100%;
-  background-color: transparent;
+  background-color: rgba(200, 228, 255, 0.13);
   color: gray;
-  font-size: 11px;
+  font-size: 12px;
+  text-align: left;
+
+  
+}
+.card-info3{
+  margin-top: 1rem;
 }
 .infos2{
   display: flex;
@@ -518,7 +552,9 @@ small{
   background-color: transparent;
 }
 .father-info-display, .mother-info-display{
-  width: 45%;
+  width: 100%;
+
+
 }
 .birth{
   width: 100%;
@@ -608,4 +644,14 @@ small{
 .top-birth{
   display: flex;
   margin-block: 2rem;
+}
+.back2 button{
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: 800;
+}
+.back2 button:hover{
+  color: #8200fc;
 }

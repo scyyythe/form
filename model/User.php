@@ -82,8 +82,8 @@ class User
         
         ad.unit, ad.house_no, ad.street, ad.subdivision, ad.baranggay, ad.city_municipality, ad.province_home, ad.country, ad.zip, 
          
-         birth.municipality_birth, birth.province_birth,
-
+        birth.b_unit, birth.b_house, birth.b_subdivision, birth.b_baranggay, birth.municipality_birth, birth.province_birth, birth.b_country,  birth.b_zip, birth.b_street,
+        
         contacts.mobile, contacts.email, contacts.telephone,
         
         parents.father_lastname, parents.father_firstname, parents.father_middleinitial, parents.mother_lastname, parents.mother_firstname, parents.mother_middleinitial
@@ -110,7 +110,7 @@ class User
         
         ad.unit, ad.house_no, ad.street, ad.subdivision, ad.baranggay, ad.city_municipality, ad.province_home, ad.country, ad.zip, 
          
-        birth.city, birth.municipality_birth, birth.province_birth,
+        birth.b_unit, birth.b_house, birth.b_subdivision, birth.b_baranggay, birth.municipality_birth, birth.province_birth, birth.b_country,  birth.b_zip, birth.b_street,
     
         contacts.mobile, contacts.email, contacts.telephone,
         

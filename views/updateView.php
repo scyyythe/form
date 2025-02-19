@@ -138,41 +138,105 @@ if (isset($_GET['id'])) {
                         <span class="error"><?php echo $religionInvalid; ?></span>
                     </div>
                 </div>
+                <div class="buttons">
+                    <button type="button" id="nextBtn" onclick="nextTab()">&#8594;</button>
+                </div>
+            </div>
+            <div class="tab">
                 <div class="foot">
-                    <h5>Place of Birth</h5>
+                    <p class="p1"> <b>Place of Birth</b></p>
 
-                    <div class="foot1">
+                    <div class="top-birth">
                         <div class="input">
-                            <label for="city">City</label><br />
-                            <input class="input5" type="text" name="city" value="<?php echo $data['city'] ?>" placeholder="e.g., Cebu City" /><br>
-                            <span class="error"><?php echo $cityInvalid; ?></span>
+                            <label for="birth_unit">RM/FLR/Unit No. & Bldg. Name</label><br />
+                            <input class="input5" type="text" name="birth_unit" value="<?php echo $data['b_unit'] ?>" placeholder="e.g., 1234 Unit Bldg." /><br>
+                            <span class="error"><?php echo $birth_unitInvalid; ?></span>
                         </div>
 
                         <div class="input">
-                            <label for="municipality_birth">Municipality</label><br />
-                            <input class="input5" type="text" name="municipality_birth" value="<?php echo $data['municipality_birth'] ?>" placeholder="e.g., Cebu" /><br>
+                            <label for="birth_house">House/Lot & Blk. No</label><br />
+                            <input class="input5" type="text" name="birth_house" value="<?php echo $data['b_house'] ?>" placeholder="e.g., 5678 Block 9" /><br>
+                            <span class="error"><?php echo $birth_houseInvalid; ?></span>
+                        </div>
+
+                        <div class="input">
+                            <label for="birth_street">Street Name</label><br />
+                            <input class="input5" type="text" name="birth_street" value="<?php echo $data['b_street'] ?>" placeholder="e.g., Main Street" /><br>
+                            <span class="error"><?php echo $birth_streetInvalid; ?></span>
+                        </div>
+                    </div>
+
+                    <div class="top-birth">
+                        <div class="input">
+                            <label for="birth_subdivision">Subdivision</label><br />
+                            <input class="input5" type="text" name="birth_subdivision" value="<?php echo $data['b_subdivision'] ?>" placeholder="e.g., Sunshine Subdivision" /><br>
+                            <span class="error"><?php echo $birth_subdivisionInvalid; ?></span>
+                        </div>
+
+                        <div class="input">
+                            <label for="birth_baranggay">Barangay/District/Locality</label><br />
+                            <input type="text" name="birth_baranggay" value="<?php echo $data['b_baranggay'] ?>" placeholder="e.g., Tunghaan" /><br>
+                            <span class="error"><?php echo $birth_baranggayInvalid; ?></span>
+                        </div>
+
+                        <div class="input">
+                            <label for="municipality_birth">City/Municipality</label><br />
+                            <input class="input5" type="text" name="municipality_birth" value="<?php echo $data['municipality_birth'] ?>" placeholder="e.g., Minglanilla" /><br>
                             <span class="error"><?php echo $municipalityInvalid; ?></span>
                         </div>
                     </div>
 
-                    <div class="foot2">
+                    <div class="top-birth">
+
                         <div class="input">
                             <label for="province_birth">Province</label><br />
-                            <input type="text" name="province_birth" value="<?php echo $data['province_birth'] ?>" placeholder="e.g., Cebu" /><br>
+                            <input type="text" name="province_birth" value="<?php echo $data['province_birth'] ?>" placeholder="e.g.,Cebu Province" /><br>
                             <span class="error"><?php echo $provinceInvalid; ?></span>
                         </div>
 
-                        <div class="buttons">
-                            <button type="button" onclick="nextTab()">&#8594;</button>
+                        <?php
+
+                        $countriesData = file_get_contents("../countries.json");
+                        $countries = json_decode($countriesData, true);
+
+                        $selectedBirthCountry = isset($_SESSION['birth_country']) ? $_SESSION['birth_country'] : "";
+                        ?>
+
+                        <div class="input">
+                            <label for="birth_country">Country</label><br />
+                            <select name="birth_country">
+                                <option value="">Select a country</option>
+                                <?php
+                                foreach ($countries as $birth_country) {
+                                    $isSelected = ($birth_country === $data['b_country']) ? " selected" : "";
+                                    echo "<option value='$birth_country'$isSelected>$birth_country</option>";
+                                }
+                                ?>
+                            </select><br />
+                            <span class="error"><?php echo $birth_countryInvalid; ?></span>
                         </div>
+
+
+                        <div class="input">
+                            <label for="birth_zip">Zip Code</label><br />
+                            <input type="text" name="birth_zip" value="<?php echo $data['b_zip'] ?>" placeholder="e.g., 6046" /><br>
+                            <span class="error"><?php echo $birth_zipInvalid; ?></span>
+                        </div>
+
+                    </div>
+                    <div class="buttons home_button">
+                        <button type="button" id="prevBtn" onclick="prevTab()">&#8592;</button>
+                        <button type="button" id="nextBtn" onclick="nextTab()">&#8594;</button>
                     </div>
                 </div>
             </div>
 
+
             <div class="tab">
-                <h5>Home Address</h5>
-                <div class="container_home">
-                    <div class="left_home">
+                <div class="foot">
+                    <p class="p1"> <b>Home Address</b></p>
+
+                    <div class="top-birth">
                         <div class="input in_num">
                             <label for="unit">RM/FLR/Unit No. & Bldg. Name</label><br />
                             <input
@@ -182,6 +246,7 @@ if (isset($_GET['id'])) {
                                 placeholder="e.g., 1234 Unit Bldg." /><br />
                             <span class="error"><?php echo $unitInvalid; ?></span>
                         </div>
+
                         <div class="input in_num">
                             <label for="houseNo">House/Lot & Blk. No</label><br />
                             <input
@@ -201,6 +266,9 @@ if (isset($_GET['id'])) {
                                 placeholder="e.g., Main Street" /><br />
                             <span class="error"><?php echo $streetInvalid; ?></span>
                         </div>
+                    </div>
+
+                    <div class="top-birth">
                         <div class="input">
                             <label for="subdivision">Subdivision</label><br />
                             <input
@@ -213,37 +281,31 @@ if (isset($_GET['id'])) {
 
                         <div class="input">
                             <label for="baranggay">Barangay/District/Locality</label><br />
-                            <input
-                                type="text"
-                                name="baranggay"
-                                value="<?php echo $data['baranggay'] ?>"
-                                placeholder="e.g., Poblacion" /><br />
+                            <input type="text" name="baranggay" value="<?php echo $data['baranggay'] ?>" placeholder="e.g., Tunghaan" /><br>
                             <span class="error"><?php echo $baranggayInvalid; ?></span>
+                        </div>
+
+                        <div class="input">
+                            <label for="cityMunicipality">City/Municipality</label><br />
+                            <input class="input5" type="text" name="cityMunicipality" value="<?php echo $data['city_municipality'] ?>" placeholder="e.g., Minglanilla" /><br>
+                            <span class="error"><?php echo $cityMunicipalityInvalid; ?></span>
                         </div>
                     </div>
 
-                    <div class="right_home">
-                        <div class="input">
-                            <label for="cityMunicipality">City/Municipality</label><br />
-                            <input
-                                type="text"
-                                name="cityMunicipality"
-                                value="<?php echo $data['city_municipality'] ?>"
-                                placeholder="e.g., Minglanilla" /><br />
-                            <span class="error"><?php echo $cityMunicipalityInvalid; ?></span>
-                        </div>
+                    <div class="top-birth">
+
                         <div class="input">
                             <label for="province_home">Province</label><br />
-                            <input
-                                type="text"
-                                name="province_home"
-                                value="<?php echo $data['province_home'] ?>"
-                                placeholder="e.g., Cebu" /><br />
-                            <span class="error"><?php echo $province_homeInvalid; ?></span>
+                            <input type="text" name="province_home" value="<?php echo $data['province_home'] ?>" placeholder="e.g., Cebu Province" /><br>
+                            <span class="error"><?php echo $provinceInvalid; ?></span>
                         </div>
+
                         <?php
+
                         $countriesData = file_get_contents("../countries.json");
                         $countries = json_decode($countriesData, true);
+
+                        $selectedHomeCountry = isset($_SESSION['country']) ? $_SESSION['country'] : "";
                         ?>
 
                         <div class="input">
@@ -252,7 +314,8 @@ if (isset($_GET['id'])) {
                                 <option value="">Select a country</option>
                                 <?php
                                 foreach ($countries as $country) {
-                                    echo "<option value='$country'" . ($country === $data['country'] ? " selected" : "") . ">$country</option>";
+                                    $isSelected = ($country === $data['country']) ? " selected" : "";
+                                    echo "<option value='$country'$isSelected>$country</option>";
                                 }
                                 ?>
                             </select><br />
@@ -263,14 +326,14 @@ if (isset($_GET['id'])) {
 
                         <div class="input">
                             <label for="zip">Zip Code</label><br />
-                            <input type="text" name="zip" placeholder="e.g., 6046" value="<?php echo $data['zip'] ?>" /><br />
+                            <input type="text" name="zip" value="<?php echo $data['zip'] ?>" placeholder="e.g., 6046" /><br>
                             <span class="error"><?php echo $zipInvalid; ?></span>
                         </div>
 
-                        <div class="buttons home_button">
-                            <button type="button" onclick="prevTab()">&#8592;</button>
-                            <button type="button" onclick="nextTab()">&#8594;</button>
-                        </div>
+                    </div>
+                    <div class="buttons home_button">
+                        <button type="button" id="prevBtn" onclick="prevTab()">&#8592;</button>
+                        <button type="button" id="nextBtn" onclick="nextTab()">&#8594;</button>
                     </div>
                 </div>
             </div>

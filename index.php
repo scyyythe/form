@@ -9,6 +9,7 @@ include 'controller/session_data.php';
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="css/style.css" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="icon" type="image/png" href="image/icons8-google-forms-48.png" />
   <title>Register New Details</title>
 </head>
@@ -19,11 +20,12 @@ include 'controller/session_data.php';
     <button onclick="window.location.href='views/dataView.php'">View All</button>
   </header>
   <div class=" container">
+
+
     <form action="controller/submit.php" class="form" method="POST">
       <input type="hidden" name="id" value="<?= $user['user_id'] ?? '' ?>">
       <div class="tab active first">
         <p class="p1"><b>General Information</b></p>
-
 
         <div class="upper">
           <div class="input">
@@ -82,7 +84,7 @@ include 'controller/session_data.php';
                 <option value="Married" <?php echo $civilStatus === 'Married' ? 'selected' : ''; ?>>Married</option>
                 <option value="Widowed" <?php echo $civilStatus === 'Widowed' ? 'selected' : ''; ?>>Widowed</option>
                 <option value="Legally Separated" <?php echo $civilStatus === 'Legally Separated' ? 'selected' : ''; ?>>Legally Separated</option>
-                <option value="others" <?php echo $civilStatus === 'others' ? 'selected' : ''; ?>>Others</option>
+                <option value="others" <?php echo $civilStatus === 'Others' ? 'selected' : ''; ?>>Others</option>
               </select><br>
               <span class="error"><?php echo $civilStatusInvalid; ?></span>
             </div>
@@ -124,7 +126,7 @@ include 'controller/session_data.php';
           </div>
         </div>
         <div class="buttons">
-          <button type="button" onclick="nextTab()">&#8594;</button>
+          <button type="button" id="nextBtn" onclick="nextTab()">&#8594;</button>
         </div>
       </div>
 
@@ -181,8 +183,11 @@ include 'controller/session_data.php';
             </div>
 
             <?php
+
             $countriesData = file_get_contents("countries.json");
             $countries = json_decode($countriesData, true);
+
+            $selectedBirthCountry = isset($_SESSION['birth_country']) ? $_SESSION['birth_country'] : "";
             ?>
 
             <div class="input">
@@ -191,12 +196,14 @@ include 'controller/session_data.php';
                 <option value="">Select a country</option>
                 <?php
                 foreach ($countries as $birth_country) {
-                  echo "<option value='$birth_country'" . ($birth_country === $selectedBirthCountry ? " selected" : "") . ">$birth_country</option>";
+                  $isSelected = ($birth_country === $selectedBirthCountry) ? " selected" : "";
+                  echo "<option value='$birth_country'$isSelected>$birth_country</option>";
                 }
                 ?>
               </select><br />
               <span class="error"><?php echo $birth_countryInvalid; ?></span>
             </div>
+
 
             <div class="input">
               <label for="birth_zip">Zip Code</label><br />
@@ -206,8 +213,8 @@ include 'controller/session_data.php';
 
           </div>
           <div class="buttons home_button">
-            <button type="button" onclick="prevTab()">&#8592;</button>
-            <button type="button" onclick="nextTab()">&#8594;</button>
+            <button type="button" id="prevBtn" onclick="prevTab()">&#8592;</button>
+            <button type="button" id="nextBtn" onclick="nextTab()">&#8594;</button>
           </div>
         </div>
       </div>
@@ -282,8 +289,11 @@ include 'controller/session_data.php';
             </div>
 
             <?php
+
             $countriesData = file_get_contents("countries.json");
             $countries = json_decode($countriesData, true);
+
+            $selectedHomeCountry = isset($_SESSION['country']) ? $_SESSION['country'] : "";
             ?>
 
             <div class="input">
@@ -292,7 +302,8 @@ include 'controller/session_data.php';
                 <option value="">Select a country</option>
                 <?php
                 foreach ($countries as $country) {
-                  echo "<option value='$country'" . ($country === $selectedHomeCountry ? " selected" : "") . ">$country</option>";
+                  $isSelected = ($country === $selectedHomeCountry) ? " selected" : "";
+                  echo "<option value='$country'$isSelected>$country</option>";
                 }
                 ?>
               </select><br />
@@ -300,16 +311,17 @@ include 'controller/session_data.php';
             </div>
 
 
+
             <div class="input">
               <label for="zip">Zip Code</label><br />
-              <input type="text" name="zip" value="<?php echo $zip ?>" placeholder="e.g., Cebu" /><br>
+              <input type="text" name="zip" value="<?php echo $zip ?>" placeholder="e.g., 6046" /><br>
               <span class="error"><?php echo $zipInvalid; ?></span>
             </div>
 
           </div>
           <div class="buttons home_button">
-            <button type="button" onclick="prevTab()">&#8592;</button>
-            <button type="button" onclick="nextTab()">&#8594;</button>
+            <button type="button" id="prevBtn" onclick="prevTab()">&#8592;</button>
+            <button type="button" id="nextBtn" onclick="nextTab()">&#8594;</button>
           </div>
         </div>
       </div>
@@ -350,7 +362,7 @@ include 'controller/session_data.php';
         <p class="p1"><b>Guardian's Information</b></p>
         <div class="guardian">
           <div class="father_info">
-            <p class="p1"><b>Father's Name</b></p>
+            <p class="p1">Father's Name</p>
             <label for="lastnameFather">Last Name</label><br />
             <input
               type="text"
@@ -378,7 +390,7 @@ include 'controller/session_data.php';
           </div>
 
           <div class="mother_info">
-            <p class="p1"><b>Mother's Maiden Name</b></p>
+            <p class="p1">Mother's Maiden Name</p>
             <label for="lastnameMother">Last Name</label><br />
             <input
               type="text"
@@ -405,7 +417,7 @@ include 'controller/session_data.php';
         </div>
 
         <div class="buttons button2">
-          <button type="button" onclick="prevTab()">&#8592;</button>
+          <button type="button" id="prevBtn" onclick="prevTab()">&#8592;</button>
           <button type="submit">Add User Details</button>
         </div>
       </div>
