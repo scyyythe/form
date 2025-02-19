@@ -1,5 +1,6 @@
 <?php
 include 'controller/session_data.php';
+session_destroy();
 ?>
 
 <!DOCTYPE html>

@@ -8,6 +8,18 @@ require_once '../controller/session_data.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // print_r($_POST);
     // exit;
+    if (isset($_POST['delete_user'])) {
+        $user = new User($conn);
+        $user_id = $_POST['delete_user'];
+
+        if ($user->delete($user_id)) {
+            header("Location: ../views/dataView.php?success=Deleted successfully");
+            exit();
+        } else {
+            header("Location: ../views/dataView.php?error=Failed to delete user");
+            exit();
+        }
+    }
 
 
     //for validation

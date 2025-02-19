@@ -45,9 +45,6 @@ class User
         $this->bindValues($statement, $data);
         $statement->execute();
 
-
-
-
         //contancts
         $contactQuery = "INSERT INTO contacts (user_id, mobile, email, telephone) 
                          VALUES (:user_id, :mobile, :email, :telephone)";
@@ -127,5 +124,69 @@ class User
         $statement->bindParam(':user_id', $user_id);
         $statement->execute();
         return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function update($user_id, $fields)
+    {
+        // Update user information
+        $userQuery = "UPDATE users 
+                      SET firstname = :firstname, lastname = :lastname, middle = :middle, dob = :dob, 
+                          age = :age, sex = :sex, civil_status = :civil_status, other_status = :other_status, 
+                          tax = :tax, nationality = :nationality, religion = :religion
+                      WHERE user_id = :user_id";
+        $statement = $this->conn->prepare($userQuery);
+        $data['user_id'] = $user_id;
+        $this->bindValues($statement, $fields);
+        if (!$statement->execute()) {
+            return false;
+        }
+
+        // update address
+        $addressQuery = "UPDATE addresses 
+                         SET unit = :unit, house_no = :house_no, street = :street, subdivision = :subdivision, 
+                             baranggay = :baranggay, city_municipality = :city_municipality, province_home = :province_home, 
+                             country = :country, zip = :zip 
+                         WHERE user_id = :user_id";
+        $statement = $this->conn->prepare($addressQuery);
+        $this->bindValues($statement, $data);
+        $statement->execute();
+
+        // update birth place
+        $birthPlaceQuery = "UPDATE birth_place 
+                            SET b_unit = :b_unit, b_house = :b_house, b_street = :b_street, b_subdivision = :b_subdivision, 
+                                b_baranggay = :b_baranggay, b_country = :b_country, b_zip = :b_zip, 
+                                municipality_birth = :municipality_birth, province_birth = :province_birth
+                            WHERE user_id = :user_id";
+        $statement = $this->conn->prepare($birthPlaceQuery);
+        $this->bindValues($statement, $data);
+        $statement->execute();
+
+        // update contacts
+        $contactQuery = "UPDATE contacts 
+                         SET mobile = :mobile, email = :email, telephone = :telephone 
+                         WHERE user_id = :user_id";
+        $statement = $this->conn->prepare($contactQuery);
+        $this->bindValues($statement, $data);
+        $statement->execute();
+
+        // update parents
+        $parentQuery = "UPDATE parents 
+                        SET father_lastname = :father_lastname, father_firstname = :father_firstname, 
+                            father_middleinitial = :father_middleinitial, mother_lastname = :mother_lastname, 
+                            mother_firstname = :mother_firstname, mother_middleinitial = :mother_middleinitial 
+                        WHERE user_id = :user_id";
+        $statement = $this->conn->prepare($parentQuery);
+        $this->bindValues($statement, $data);
+        $statement->execute();
+
+        return true;
+    }
+
+    public function delete($user_id)
+    {
+        $deleteUser = "DELETE FROM users WHERE user_id = :user_id";
+        $statement = $this->conn->prepare($deleteUser);
+        $statement->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        return $statement->execute();
     }
 }
