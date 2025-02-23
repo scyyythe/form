@@ -9,42 +9,30 @@ require_once '../controller/session_data.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = new User($conn);
 
-    if (isset($_POST['update_user'])) {
+    $valid = true;
 
+    if (isset($_POST['update_user'])) {
         $user_id = $_POST['update_user'];
         $data = $_POST;
         unset($data['update_user']);
 
-        $valid = true;
         validateUserInput($valid);
 
         if ($valid) {
             if ($user->update($user_id, $data)) {
-                header("Location: ../success.php?id=" . urlencode($data['user_id']));
+                header("Location: ../success.php?id=" . urlencode($user_id));
                 exit();
             }
         } else {
-            header("Location: ../views/updateView.php?id=" . urlencode($data['user_id']));
+            header("Location: ../views/updateView.php?id=" . urlencode($user_id));
             exit();
         }
     }
-
-    $valid = true;
     validateUserInput($valid);
-
-    function calculateAge($dob)
-    {
-        if (empty($dob)) {
-            return null;
-        }
-        $dob = new DateTime($dob);
-        $today = new DateTime();
-        return $today->diff($dob)->y;
-    }
 
     if ($valid) {
         $dob = $_SESSION['date'] ?? '';
-        $age = calculateAge($dob);
+        $age = $user->calculateAge($dob);
 
         $fields = [
             "lastname" => "lastname",

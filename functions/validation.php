@@ -1,7 +1,6 @@
 <?php
 require_once '../controller/session_data.php';
 
-// Validation and data preparation (same as insert)
 $validationFields = [
     'lastnameInvalid',
     'firstnameInvalid',
@@ -223,12 +222,12 @@ function validateUserInput(&$valid)
         $_SESSION[$field] = '';
     }
 
-    // Validate personal details
+    // personal details
     validateNameField('lastname', 'lastnameInvalid', 'Last name is required!', $valid);
     validateNameField('firstname', 'firstnameInvalid', 'First name is required!', $valid);
     validateMiddleInitial('middle', 'middleInvalid', $valid);
 
-    // Validate parent's names
+    // parent's names
     validateNameField('lastnameFather', 'lastnameFatherInvalid', 'Father\'s last name is required!', $valid);
     validateNameField('firstnameFather', 'firstnameFatherInvalid', 'Father\'s first name is required!', $valid);
     validateNameField('middleinitialFather', 'middleinitialFatherInvalid', 'Father\'s middle name is required!', $valid);
@@ -240,22 +239,22 @@ function validateUserInput(&$valid)
     validateNameField('nationality', 'nationalityInvalid', 'Nationality is required!', $valid);
     validateNameField('religion', 'religionInvalid', 'Religion is required!', $valid);
 
-    // Validate Date of Birth
+    // date of birth
     validateDateOfBirth('date', 'dateInvalid', $valid);
 
-    // Validate sex
+    // sex/gender
     validateRequiredField('sex', 'sexInvalid', 'Gender is required!', $valid);
 
-    // Validate civil status
+    // civil status
     validateRequiredField('civilStatus', 'civilStatusInvalid', 'Civil status is required!', $valid);
     if ($_POST['civilStatus'] == 'others') {
         validateNameField('otherStatus', 'otherStatusInvalid', 'Please specify your civil status', $valid);
     }
 
-    // Validate tax ID
+    // tax 
     validateTax('tax', 'taxInvalid', $valid);
 
-    // Validate birth place details
+    //birth place details
     validateNameField('province_birth', 'provinceInvalid', 'Province is required!', $valid);
     validateTextInput('birth_unit', 'birth_unitInvalid', 'Unit is required!', $valid);
     validateTextInput('birth_house', 'birth_houseInvalid', 'House number is required!', $valid);
@@ -265,7 +264,7 @@ function validateUserInput(&$valid)
     validateNameField('municipality_birth', 'municipalityInvalid', 'City/Municipality is required!', $valid);
     validateNameField('birth_country', 'birth_countryInvalid', 'Country is required!', $valid);
 
-    // Validate current address details
+    // current address details
     validateTextInput('unit', 'unitInvalid', 'Unit is required!', $valid);
     validateTextInput('houseNo', 'houseNoInvalid', 'House number is required!', $valid);
     validateNameField('street', 'streetInvalid', 'Street name is required!', $valid);
@@ -275,7 +274,7 @@ function validateUserInput(&$valid)
     validateNameField('province_home', 'province_homeInvalid', 'Province (home) is required!', $valid);
     validateNameField('country', 'countryInvalid', 'Country is required!', $valid);
 
-    // Validate numerical fields
+    //numerical fields
     validateNumeric('zip', 'zipInvalid', 'Zip code is required!', $valid);
     validateNumeric('birth_zip', 'birth_zipInvalid', 'Birth zip code is required!', $valid);
     validateNumeric('mobile', 'mobileInvalid', 'Mobile number is required!', $valid);

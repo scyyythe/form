@@ -19,9 +19,20 @@ class User
             }
         }
     }
+    public function calculateAge($dob)
+    {
+        if (empty($dob)) {
+            return null;
+        }
+
+        $dob = new DateTime($dob);
+        $today = new DateTime();
+        return $today->diff($dob)->y;
+    }
 
     public function insert($data)
     {
+
         //user
         $userQuery = "INSERT INTO users (firstname, lastname, middle, dob, age, sex, civil_status, other_status, tax, nationality, religion) 
                       VALUES (:firstname, :lastname, :middle, :dob, :age, :sex, :civil_status, :other_status, :tax, :nationality, :religion)";
@@ -65,9 +76,6 @@ class User
           VALUES (:user_id, :b_unit, :b_house, :b_street, :b_subdivision, :b_baranggay, :b_country, :b_zip,:municipality_birth, :province_birth)";
         $statement = $this->conn->prepare($birthPlaceQuery);
         $this->bindValues($statement, $data);
-        echo $birthPlaceQuery;
-        print_r($data);  // Display the array of data being passed
-
         $statement->execute();
 
         return true;
@@ -128,7 +136,7 @@ class User
 
     public function update($user_id, $fields)
     {
-
+        $fields['age'] = $this->calculateAge($fields['date']);
         $fields['dob'] = $fields['date'];
         unset($fields['date']);
 
