@@ -1,4 +1,3 @@
-
 <?php
 
 require '../functions/validation.php';
@@ -6,34 +5,28 @@ require_once '../config/connection.php';
 require_once '../model/User.php';
 require_once '../controller/session_data.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $user = new User($conn);
+class UserController
+{
+    private $user;
 
-    $valid = true;
-
-    if (isset($_POST['update_user'])) {
-        $user_id = $_POST['update_user'];
-        $data = $_POST;
-        unset($data['update_user']);
-
-        validateUserInput($valid);
-
-        if ($valid) {
-            if ($user->update($user_id, $data)) {
-                header("Location: ../success.php?id=" . urlencode($user_id));
-                exit();
-            }
-        } else {
-            header("Location: ../views/updateView.php?id=" . urlencode($user_id));
-            exit();
-        }
+    public function __construct($conn)
+    {
+        $this->user = new User($conn);
     }
 
-    validateUserInput($valid);
 
-    if ($valid) {
+    public function insertUser()
+    {
+        $valid = true;
+        validateUserInput($valid);
+
+        if (!$valid) {
+            header("Location: ../index.php");
+            exit();
+        }
+
         $dob = $_SESSION['date'] ?? '';
-        $age = $user->calculateAge($dob);
+        $age = $this->user->calculateAge($dob);
 
         $fields = [
             "lastname" => "lastname",
@@ -80,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data[$key] = $_SESSION[$sessionKey] ?? '';
         }
 
-        $result = $user->insert($data);
+        $result = $this->user->insert($data);
 
         if ($result !== true) {
             echo "Insert failed: " . $result;
@@ -89,10 +82,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         header("Location: ../views/dataView.php");
         exit();
-    } else {
-        header("Location: ../index.php");
-        exit();
     }
-} else {
-    echo 'Form has not been submitted yet!';
+
+
+    public function updateUser($user_id, $data)
+    {
+        $valid = true;
+        validateUserInput($valid);
+
+        if ($valid) {
+            if ($this->user->update($user_id, $data)) {
+                header("Location: ../success.php?id=" . urlencode($user_id));
+                exit();
+            }
+        } else {
+            header("Location: ../views/updateView.php?id=" . urlencode($user_id));
+            exit();
+        }
+    }
+
+    public function deleteUser($user_id)
+    {
+
+        if ($this->user->delete($user_id)) {
+            header("Location: ../views/dataView.php?message=User Deleted successfully");
+            exit();
+        } else {
+            echo "Failed to delete user.";
+        }
+    }
 }

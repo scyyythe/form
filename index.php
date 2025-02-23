@@ -9,7 +9,7 @@ session_destroy();
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="icon" type="image/png" href="image/icons8-google-forms-48.png" />
   <title>Register New Details</title>
@@ -23,7 +23,7 @@ session_destroy();
   <div class=" container">
 
 
-    <form action="controller/UserController.php" class="form" method="POST">
+    <form action="routes/process.php" class="form" method="POST">
       <input type="hidden" name="id" value="<?= $user['user_id'] ?? '' ?>">
       <div class="tab active first">
         <p class="p1"><b>General Information</b></p>
@@ -425,7 +425,7 @@ session_destroy();
     </form>
   </div>
 
-  <script src="js/main.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 
 </html>

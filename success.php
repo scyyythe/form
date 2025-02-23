@@ -15,8 +15,8 @@ if (isset($_GET['id'])) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="image/icons8-male-user-30.png" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/png" href="assets/image/icons8-male-user-30.png" />
+  <link rel="stylesheet" href="assets/css/style.css" />
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <title>Personal Information</title>
 </head>
@@ -37,7 +37,7 @@ if (isset($_GET['id'])) {
       <div class="left-card">
         <div class="profile">
           <div class="img">
-            <img src="image/profile.png" alt="profile picture" />
+            <img src="assets/image/profile.png" alt="profile picture" />
           </div>
           <h5>Profile</h5>
         </div>
@@ -65,7 +65,7 @@ if (isset($_GET['id'])) {
         </div>
 
         <div class="info-icon">
-          <img src="image/info.png" alt="information" />
+          <img src="assets/image/info.png" alt="information" />
         </div>
       </div>
     </section>
@@ -99,7 +99,7 @@ if (isset($_GET['id'])) {
         </div>
 
         <div class="infos">
-          <img src="image/home.png" alt="home" />
+          <img src="assets/image/home.png" alt="home" />
           <small><?php echo $data['house_no'] . ', ' . $data['street'] . ', ' . $data['baranggay'] . ', ' . $data['city_municipality'] . ', ' . $data['province_home']; ?></small>
         </div>
         <br />
@@ -126,7 +126,7 @@ if (isset($_GET['id'])) {
         <div class="birthplace-card">
           <h5>Place of Birth</h5>
           <div class="birth">
-            <img src="image/home.png" alt="home" />
+            <img src="assets/image/home.png" alt="home" />
             <small>Born in <?php echo $data['b_house'] . ', ' . $data['b_street'] . ', ' . $data['b_baranggay'] . ', ' . $data['municipality_birth'] . ', ' . $data['province_home']; ?></small>
           </div>
         </div>
@@ -151,7 +151,7 @@ if (isset($_GET['id'])) {
     <section class="contactinfo">
       <div class="board3">
         <div class="head-board3">
-          <img src="image/contact.png" alt="contactr image" />
+          <img src="assets/image/contact.png" alt="contacte image" />
           <h5>Contact Information</h5>
         </div>
 

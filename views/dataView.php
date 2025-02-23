@@ -14,8 +14,9 @@ $users = $user->getAll();
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="../image/icons8-users-48.png" />
-  <link rel="stylesheet" href="../css/table.css" />
+  <link rel="icon" type="image/png" href="../assets/image/icons8-users-48.png" />
+  <link rel="stylesheet" href="../assets/css/table.css">
+
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
   <title>List of Users</title>
 </head>
@@ -28,7 +29,7 @@ $users = $user->getAll();
       <input type="text" id="searchInput" placeholder="Search by name" onkeyup="searchTable()" />
 
       <div class="image">
-        <img src="../image/profile.png" alt="" />
+        <img src="../assets/image/profile.png" alt="" />
       </div>
     </div>
   </header>
@@ -82,7 +83,7 @@ $users = $user->getAll();
                   <button class="find" onclick="window.location.href='../success.php?id=<?php echo $data['user_id']; ?>'"><i class="bx bx-file-find"></i></button>
                   <button class="edit" onclick="window.location.href='../views/updateView.php?id=<?php echo $data['user_id']; ?>'"><i class="bx bx-edit"></i></button>
 
-                  <form method="POST" action="../controller/DeleteInfo.php" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                  <form method="POST" action="../routes/process.php" onsubmit="return confirm('Are you sure you want to delete this user?');">
                     <input type="hidden" name="delete_user" value="<?php echo $data['user_id']; ?>">
                     <button type="submit" class="delete"><i class="bx bx-trash"></i></button>
                   </form>

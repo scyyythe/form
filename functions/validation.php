@@ -1,5 +1,8 @@
 <?php
 require_once '../controller/session_data.php';
+ob_start();
+
+
 
 $validationFields = [
     'lastnameInvalid',

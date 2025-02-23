@@ -17,7 +17,7 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="icon" type="image/png" href="../image/icons8-female-user-update-64.png" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <title>Form Input</title>
@@ -35,7 +35,7 @@ if (isset($_GET['id'])) {
     </header>
 
     <div class="container">
-        <form action="../controller/UserController.php" class="form" method="POST">
+        <form action="../routes/process.php" class="form" method="POST">
             <input type="hidden" name="user_id" value="<?= $data['user_id'] ?? '' ?>">
             <div class="tab active first">
                 <p class="p1"><b>Personal Information</b></p>
@@ -436,7 +436,7 @@ if (isset($_GET['id'])) {
         </form>
     </div>
 
-    <script src="../js/main.js"></script>
+    <script src="../assets/js/main.js"></script>
 </body>
 
 </html>
