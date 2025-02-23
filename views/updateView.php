@@ -2,7 +2,7 @@
 include '../controller/session_data.php';
 require_once '../config/connection.php';
 require_once '../model/User.php';
-session_destroy();
+
 if (isset($_GET['id'])) {
     $user_id = $_GET['id'];
     $user = new User($conn);
@@ -34,8 +34,8 @@ if (isset($_GET['id'])) {
     </header>
 
     <div class="container">
-        <form action="../controller/update.php" class="form" method="POST">
-            <input type="hidden" name="id" value="<?= $data['user_id'] ?? '' ?>">
+        <form action="../controller/submit.php" class="form" method="POST">
+            <input type="hidden" name="user_id" value="<?= $data['user_id'] ?? '' ?>">
             <div class="tab active first">
                 <p class="p1"><b>Personal Information</b></p>
 
@@ -429,7 +429,7 @@ if (isset($_GET['id'])) {
 
                 <div class="buttons button2">
                     <button type="button" onclick="prevTab()">&#8592;</button>
-                    <button type="submit">Update Details</button>
+                    <button type="submit" name="update_user" value="<?= $data['user_id'] ?? '' ?>">Update Details</button>
                 </div>
             </div>
         </form>

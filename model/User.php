@@ -128,55 +128,72 @@ class User
 
     public function update($user_id, $fields)
     {
-        // Update user information
-        $userQuery = "UPDATE users 
-                      SET firstname = :firstname, lastname = :lastname, middle = :middle, dob = :dob, 
-                          age = :age, sex = :sex, civil_status = :civil_status, other_status = :other_status, 
-                          tax = :tax, nationality = :nationality, religion = :religion
-                      WHERE user_id = :user_id";
-        $statement = $this->conn->prepare($userQuery);
-        $data['user_id'] = $user_id;
-        $this->bindValues($statement, $fields);
-        if (!$statement->execute()) {
-            return false;
-        }
 
-        // update address
+        $fields['dob'] = $fields['date'];
+        unset($fields['date']);
+
+        $fields['father_lastname'] = $fields['lastnameFather'];
+        $fields['father_firstname'] = $fields['firstnameFather'];
+        $fields['father_middleinitial'] = $fields['middleinitialFather'];
+        $fields['mother_lastname'] = $fields['lastnameMother'];
+        $fields['mother_firstname'] = $fields['firstnameMother'];
+        $fields['mother_middleinitial'] = $fields['middleinitialMother'];
+
+
+        $fields['user_id'] = $user_id;
+
+
+        $userQuery = "UPDATE users 
+                        SET firstname = :firstname, lastname = :lastname, middle = :middle, dob = :dob, 
+                            age = :age, sex = :sex, civil_status = :civilStatus, other_status = :otherStatus, 
+                            tax = :tax, nationality = :nationality, religion = :religion
+                        WHERE user_id = :user_id";
+
+        $statement = $this->conn->prepare($userQuery);
+        $this->bindValues($statement, $fields);
+        $statement->execute();
+
+        // Update address
         $addressQuery = "UPDATE addresses 
-                         SET unit = :unit, house_no = :house_no, street = :street, subdivision = :subdivision, 
-                             baranggay = :baranggay, city_municipality = :city_municipality, province_home = :province_home, 
+                         SET unit = :unit, house_no = :houseNo, street = :street, subdivision = :subdivision, 
+                             baranggay = :baranggay, city_municipality = :cityMunicipality, province_home = :province_home, 
                              country = :country, zip = :zip 
                          WHERE user_id = :user_id";
+
         $statement = $this->conn->prepare($addressQuery);
-        $this->bindValues($statement, $data);
+        $this->bindValues($statement, $fields);
         $statement->execute();
 
-        // update birth place
+        // Update birth place
         $birthPlaceQuery = "UPDATE birth_place 
-                            SET b_unit = :b_unit, b_house = :b_house, b_street = :b_street, b_subdivision = :b_subdivision, 
-                                b_baranggay = :b_baranggay, b_country = :b_country, b_zip = :b_zip, 
-                                municipality_birth = :municipality_birth, province_birth = :province_birth
-                            WHERE user_id = :user_id";
-        $statement = $this->conn->prepare($birthPlaceQuery);
-        $this->bindValues($statement, $data);
-        $statement->execute();
-
-        // update contacts
-        $contactQuery = "UPDATE contacts 
-                         SET mobile = :mobile, email = :email, telephone = :telephone 
-                         WHERE user_id = :user_id";
-        $statement = $this->conn->prepare($contactQuery);
-        $this->bindValues($statement, $data);
-        $statement->execute();
-
-        // update parents
-        $parentQuery = "UPDATE parents 
-                        SET father_lastname = :father_lastname, father_firstname = :father_firstname, 
-                            father_middleinitial = :father_middleinitial, mother_lastname = :mother_lastname, 
-                            mother_firstname = :mother_firstname, mother_middleinitial = :mother_middleinitial 
+                        SET b_unit = :birth_unit, b_house = :birth_house, b_street = :birth_street, 
+                            b_subdivision = :birth_subdivision, b_baranggay = :birth_baranggay, 
+                            b_country = :birth_country, b_zip = :birth_zip, 
+                            municipality_birth = :municipality_birth, province_birth = :province_birth
                         WHERE user_id = :user_id";
+
+        $statement = $this->conn->prepare($birthPlaceQuery);
+        $this->bindValues($statement, $fields);
+        $statement->execute();
+
+        // Update contacts
+        $contactQuery = "UPDATE contacts 
+                             SET mobile = :mobile, email = :email, telephone = :telephone 
+                             WHERE user_id = :user_id";
+
+        $statement = $this->conn->prepare($contactQuery);
+        $this->bindValues($statement, $fields);
+        $statement->execute();
+
+        // Update parents
+        $parentQuery = "UPDATE parents 
+                            SET father_lastname = :father_lastname, father_firstname = :father_firstname, 
+                                father_middleinitial = :father_middleinitial, mother_lastname = :mother_lastname, 
+                                mother_firstname = :mother_firstname, mother_middleinitial = :mother_middleinitial 
+                            WHERE user_id = :user_id";
+
         $statement = $this->conn->prepare($parentQuery);
-        $this->bindValues($statement, $data);
+        $this->bindValues($statement, $fields);
         $statement->execute();
 
         return true;
