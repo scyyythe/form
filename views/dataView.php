@@ -82,7 +82,7 @@ $users = $user->getAll();
                   <button class="find" onclick="window.location.href='../success.php?id=<?php echo $data['user_id']; ?>'"><i class="bx bx-file-find"></i></button>
                   <button class="edit" onclick="window.location.href='../views/updateView.php?id=<?php echo $data['user_id']; ?>'"><i class="bx bx-edit"></i></button>
 
-                  <form method="POST" action="../controller/submit.php" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                  <form method="POST" action="../controller/DeleteInfo.php" onsubmit="return confirm('Are you sure you want to delete this user?');">
                     <input type="hidden" name="delete_user" value="<?php echo $data['user_id']; ?>">
                     <button type="submit" class="delete"><i class="bx bx-trash"></i></button>
                   </form>

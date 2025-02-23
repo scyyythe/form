@@ -23,7 +23,7 @@ session_destroy();
   <div class=" container">
 
 
-    <form action="controller/submit.php" class="form" method="POST">
+    <form action="controller/UserController.php" class="form" method="POST">
       <input type="hidden" name="id" value="<?= $user['user_id'] ?? '' ?>">
       <div class="tab active first">
         <p class="p1"><b>General Information</b></p>

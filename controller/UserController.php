@@ -9,18 +9,6 @@ require_once '../controller/session_data.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = new User($conn);
 
-    if (isset($_POST['delete_user'])) {
-        $user_id = $_POST['delete_user'];
-
-        if ($user->delete($user_id)) {
-            header("Location: ../views/dataView.php?success=Deleted successfully");
-            exit();
-        } else {
-            header("Location: ../views/dataView.php?error=Failed to delete user");
-            exit();
-        }
-    }
-
     if (isset($_POST['update_user'])) {
 
         $user_id = $_POST['update_user'];

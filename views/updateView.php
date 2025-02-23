@@ -2,6 +2,7 @@
 include '../controller/session_data.php';
 require_once '../config/connection.php';
 require_once '../model/User.php';
+session_destroy();
 
 if (isset($_GET['id'])) {
     $user_id = $_GET['id'];
@@ -34,7 +35,7 @@ if (isset($_GET['id'])) {
     </header>
 
     <div class="container">
-        <form action="../controller/submit.php" class="form" method="POST">
+        <form action="../controller/UserController.php" class="form" method="POST">
             <input type="hidden" name="user_id" value="<?= $data['user_id'] ?? '' ?>">
             <div class="tab active first">
                 <p class="p1"><b>Personal Information</b></p>
