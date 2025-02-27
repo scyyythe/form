@@ -88,8 +88,24 @@ class UserController
     public function updateUser($user_id, $data)
     {
         $_SESSION['old_input'] = $data;
+        // $_SESSION['old_input']['dob'] = $data['date'] ?? '';
+        $_SESSION['old_input']['civil_status'] = $data['civilStatus'] ?? '';
+        // $_SESSION['old_input']['father_lastname'] = $data['lastnameFather'] ?? '';
+        // $_SESSION['old_input']['father_firstname'] = $data['firstnameFather'] ?? '';
+        // $_SESSION['old_input']['father_middleinitial'] = $data['middleinitialFather'] ?? '';
+
+        // $_SESSION['old_input']['mother_lastname'] = $data['lastnameMother'] ?? '';
+        // $_SESSION['old_input']['mother_firstname'] = $data['firstnameMother'] ?? '';
+        // $_SESSION['old_input']['mother_middleinitial'] = $data['middleinitialMother'] ?? '';
+
+        $_SESSION['old_input']['b_unit'] = $data['birth_unit'] ?? '';
+        // $_SESSION['old_input']['b_house'] = $data['birth_house'] ?? '';
         $valid = true;
         validateUserInput($valid);
+        // var_dump($_SESSION['old_input']);
+
+        // // var_dump($data);
+        // exit();
 
         if ($valid) {
             if ($this->user->update($user_id, $data)) {

@@ -2,7 +2,7 @@
 include '../controller/session_data.php';
 require_once '../config/connection.php';
 require_once '../model/User.php';
-
+session_destroy();
 $user = new User($conn);
 $data = $_SESSION['old_input'] ?? [];
 
@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && isset($_GET['id']) && empty($data))
     $user_id = $_GET['id'];
     $data = $user->getUserDetails($user_id);
 }
-
+// unset($_SESSION['old_input']);
 
 ?>
 
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && isset($_GET['id']) && empty($data))
                 <div class="center">
                     <div class="input">
                         <label for="date">Date of Birth</label><br />
-                        <input type="date" value="<?php echo $data['dob'] ?>" name="date" /><br />
+                        <input type="date" value="<?php echo $data['date'] ?>" name="date" /><br />
                         <span class="error"><?php echo $dateInvalid; ?></span>
                     </div>
 
@@ -157,19 +157,19 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && isset($_GET['id']) && empty($data))
                     <div class="top-birth">
                         <div class="input">
                             <label for="birth_unit">RM/FLR/Unit No. & Bldg. Name</label><br />
-                            <input class="input5" type="text" name="birth_unit" value="<?php echo $data['b_unit'] ?>" placeholder="e.g., 1234 Unit Bldg." /><br>
+                            <input class="input5" type="text" name="birth_unit" value="<?php echo $data['birth_unit'] ?>" placeholder="e.g., 1234 Unit Bldg." /><br>
                             <span class="error"><?php echo $birth_unitInvalid; ?></span>
                         </div>
 
                         <div class="input">
                             <label for="birth_house">House/Lot & Blk. No</label><br />
-                            <input class="input5" type="text" name="birth_house" value="<?php echo $data['b_house'] ?>" placeholder="e.g., 5678 Block 9" /><br>
+                            <input class="input5" type="text" name="birth_house" value="<?php echo $data['birth_house'] ?>" placeholder="e.g., 5678 Block 9" /><br>
                             <span class="error"><?php echo $birth_houseInvalid; ?></span>
                         </div>
 
                         <div class="input">
                             <label for="birth_street">Street Name</label><br />
-                            <input class="input5" type="text" name="birth_street" value="<?php echo $data['b_street'] ?>" placeholder="e.g., Main Street" /><br>
+                            <input class="input5" type="text" name="birth_street" value="<?php echo $data['birth_street'] ?>" placeholder="e.g., Main Street" /><br>
                             <span class="error"><?php echo $birth_streetInvalid; ?></span>
                         </div>
                     </div>
@@ -177,13 +177,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && isset($_GET['id']) && empty($data))
                     <div class="top-birth">
                         <div class="input">
                             <label for="birth_subdivision">Subdivision</label><br />
-                            <input class="input5" type="text" name="birth_subdivision" value="<?php echo $data['b_subdivision'] ?>" placeholder="e.g., Sunshine Subdivision" /><br>
+                            <input class="input5" type="text" name="birth_subdivision" value="<?php echo $data['birth_subdivision'] ?>" placeholder="e.g., Sunshine Subdivision" /><br>
                             <span class="error"><?php echo $birth_subdivisionInvalid; ?></span>
                         </div>
 
                         <div class="input">
                             <label for="birth_baranggay">Barangay/District/Locality</label><br />
-                            <input type="text" name="birth_baranggay" value="<?php echo $data['b_baranggay'] ?>" placeholder="e.g., Tunghaan" /><br>
+                            <input type="text" name="birth_baranggay" value="<?php echo $data['birth_baranggay'] ?>" placeholder="e.g., Tunghaan" /><br>
                             <span class="error"><?php echo $birth_baranggayInvalid; ?></span>
                         </div>
 
