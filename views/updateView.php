@@ -2,14 +2,18 @@
 include '../controller/session_data.php';
 require_once '../config/connection.php';
 require_once '../model/User.php';
-session_destroy();
 
-if (isset($_GET['id'])) {
+$user = new User($conn);
+$data = $_SESSION['old_input'] ?? [];
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' && isset($_GET['id']) && empty($data)) {
     $user_id = $_GET['id'];
-    $user = new User($conn);
     $data = $user->getUserDetails($user_id);
 }
+
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +22,7 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/css/style.css" />
-    <link rel="icon" type="image/png" href="../image/icons8-female-user-update-64.png" />
+    <link rel="icon" type="image/png" href="../assets/image/icons8-female-user-update-64.png" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <title>Form Input</title>
 </head>
@@ -36,7 +40,7 @@ if (isset($_GET['id'])) {
 
     <div class="container">
         <form action="../routes/process.php" class="form" method="POST">
-            <input type="hidden" name="user_id" value="<?= $data['user_id'] ?? '' ?>">
+            <input type="hidden" name="user_id" value="<?php echo $data['user_id'] ?? '' ?>">
             <div class="tab active first">
                 <p class="p1"><b>Personal Information</b></p>
 
@@ -44,8 +48,11 @@ if (isset($_GET['id'])) {
                 <div class="upper">
                     <div class="input">
                         <label for="lastname">Last Name</label><br />
-                        <input type="text" name="lastname" value="<?php echo $data['lastname']; ?>" placeholder="Last Name" /><br>
-                        <span class="error"><?php echo $lastnameInvalid; ?></span>
+                        <input type="text" name="lastname"
+                            value="<?php echo $data['lastname'] ?>"
+                            placeholder="Last Name" />
+                        <br>
+                        <span class="error"><?php echo $lastnameInvalid ?? ''; ?></span>
                     </div>
 
                     <div class="input">

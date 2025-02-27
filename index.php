@@ -1,6 +1,6 @@
 <?php
 include 'controller/session_data.php';
-session_destroy();
+session_reset();
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +11,7 @@ session_destroy();
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="assets/css/style.css" />
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="icon" type="image/png" href="image/icons8-google-forms-48.png" />
+  <link rel="icon" type="image/png" href="assets/image/icons8-google-forms-48.png" />
   <title>Register New Details</title>
 </head>
 

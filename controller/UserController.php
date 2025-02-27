@@ -87,11 +87,13 @@ class UserController
 
     public function updateUser($user_id, $data)
     {
+        $_SESSION['old_input'] = $data;
         $valid = true;
         validateUserInput($valid);
 
         if ($valid) {
             if ($this->user->update($user_id, $data)) {
+                unset($_SESSION['old_input']);
                 header("Location: ../success.php?id=" . urlencode($user_id));
                 exit();
             }
