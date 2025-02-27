@@ -113,13 +113,13 @@ class User
     {
         $query = "SELECT users.user_id, users.firstname, users.lastname, users.middle, users.dob as 'date', users.age, users.sex, users.civil_status, users.other_status, users.tax, users.nationality, users.religion,
         
-        ad.unit, ad.house_no, ad.street, ad.subdivision, ad.baranggay, ad.city_municipality, ad.province_home, ad.country, ad.zip, 
+        ad.unit, ad.house_no as houseNo, ad.street, ad.subdivision, ad.baranggay, ad.city_municipality as cityMunicipality, ad.province_home, ad.country, ad.zip, 
          
-        birth.b_unit as birth_unit, birth.b_house as birth_house, birth.b_subdivision as birth_subdivision, birth.b_baranggay as birth_baranggay, birth.municipality_birth, birth.province_birth, birth.b_country,  birth.b_zip, birth.b_street as birth_street,
+        birth.b_unit as birth_unit, birth.b_house as birth_house, birth.b_subdivision as birth_subdivision, birth.b_baranggay as birth_baranggay, birth.municipality_birth, birth.province_birth, birth.b_country as birth_country,  birth.b_zip as birth_zip, birth.b_street as birth_street,
     
         contacts.mobile, contacts.email, contacts.telephone,
         
-        parents.father_lastname, parents.father_firstname, parents.father_middleinitial, parents.mother_lastname, parents.mother_firstname, parents.mother_middleinitial
+        parents.father_lastname as lastnameFather, parents.father_firstname as firstnameFather, parents.father_middleinitial as middleinitialFather, parents.mother_lastname as lastnameMother, parents.mother_firstname as firstnameMother, parents.mother_middleinitial as middleinitialMother
         
         FROM users 
         LEFT JOIN addresses ad ON users.user_id = ad.user_id

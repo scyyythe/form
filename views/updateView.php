@@ -216,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && isset($_GET['id']) && empty($data))
                                 <option value="">Select a country</option>
                                 <?php
                                 foreach ($countries as $birth_country) {
-                                    $isSelected = ($birth_country === $data['b_country']) ? " selected" : "";
+                                    $isSelected = ($birth_country === $data['birth_country']) ? " selected" : "";
                                     echo "<option value='$birth_country'$isSelected>$birth_country</option>";
                                 }
                                 ?>
@@ -227,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && isset($_GET['id']) && empty($data))
 
                         <div class="input">
                             <label for="birth_zip">Zip Code</label><br />
-                            <input type="text" name="birth_zip" value="<?php echo $data['b_zip'] ?>" placeholder="e.g., 6046" /><br>
+                            <input type="text" name="birth_zip" value="<?php echo $data['birth_zip'] ?>" placeholder="e.g., 6046" /><br>
                             <span class="error"><?php echo $birth_zipInvalid; ?></span>
                         </div>
 
@@ -260,7 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && isset($_GET['id']) && empty($data))
                             <input
                                 type="text"
                                 name="houseNo"
-                                value="<?php echo $data['house_no'] ?>"
+                                value="<?php echo $data['houseNo'] ?>"
                                 placeholder="e.g., 5678 Block 9" /><br />
                             <span class="error"><?php echo $houseNoInvalid; ?></span>
                         </div>
@@ -295,7 +295,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && isset($_GET['id']) && empty($data))
 
                         <div class="input">
                             <label for="cityMunicipality">City/Municipality</label><br />
-                            <input class="input5" type="text" name="cityMunicipality" value="<?php echo $data['city_municipality'] ?>" placeholder="e.g., Minglanilla" /><br>
+                            <input class="input5" type="text" name="cityMunicipality" value="<?php echo $data['cityMunicipality'] ?>" placeholder="e.g., Minglanilla" /><br>
                             <span class="error"><?php echo $cityMunicipalityInvalid; ?></span>
                         </div>
                     </div>
@@ -386,7 +386,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && isset($_GET['id']) && empty($data))
                         <input
                             type="text"
                             name="lastnameFather"
-                            value="<?php echo $data['father_lastname'] ?>"
+                            value="<?php echo $data['lastnameFather'] ?>"
                             placeholder="Father's Last Name" /><br />
                         <span class="error"><?php echo $lastnameFatherInvalid; ?></span>
                         <br>
@@ -394,7 +394,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && isset($_GET['id']) && empty($data))
                         <input
                             type="text"
                             name="firstnameFather"
-                            value="<?php echo $data['father_firstname'] ?>"
+                            value="<?php echo $data['firstnameFather'] ?>"
                             placeholder="Father's First Name" /><br />
                         <span class="error"><?php echo $firstnameFatherInvalid; ?></span>
                         <br>
@@ -402,7 +402,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && isset($_GET['id']) && empty($data))
                         <input
                             type="text"
                             name="middleinitialFather"
-                            value="<?php echo $data['father_middleinitial'] ?>"
+                            value="<?php echo $data['middleinitialFather'] ?>"
                             placeholder="Father's Middle Name" /><br />
                         <span class="error"><?php echo $middleinitialFatherInvalid; ?></span>
                         <br>
@@ -414,7 +414,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && isset($_GET['id']) && empty($data))
                         <input
                             type="text"
                             name="lastnameMother"
-                            value="<?php echo $data['mother_lastname'] ?>"
+                            value="<?php echo $data['lastnameMother'] ?>"
                             placeholder="Mother's Last Name" /><br />
                         <span class="error"><?php echo $lastnameMotherInvalid; ?></span>
                         <br>
@@ -422,14 +422,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && isset($_GET['id']) && empty($data))
                         <input
                             type="text"
                             name="firstnameMother"
-                            value="<?php echo $data['mother_firstname'] ?>"
+                            value="<?php echo $data['firstnameMother'] ?>"
                             placeholder="Mother's First Name" /><br />
                         <span class="error"><?php echo $firstnameMotherInvalid; ?></span> <br>
                         <label for="middleinitialMother">Middle Name</label><br />
                         <input
                             type="text"
                             name="middleinitialMother"
-                            value="<?php echo $data['mother_middleinitial'] ?>"
+                            value="<?php echo $data['middleinitialMother'] ?>"
                             placeholder="Mother's Middle Name" /><br />
                         <span class="error"><?php echo $middleinitialMotherInvalid; ?></span> <br>
                     </div>

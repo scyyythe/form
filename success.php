@@ -49,7 +49,7 @@ if (isset($_GET['id'])) {
 
         <div class="card-info">
           <br /><label for="date">Date of Birth</label><br />
-          <input type="text" value="<?php echo date('F d, Y', strtotime($data['dob'])); ?>" readonly />
+          <input type="text" value="<?php echo date('F d, Y', strtotime($data['date'])); ?>" readonly />
         </div>
 
         <div class="card-info">
@@ -100,7 +100,7 @@ if (isset($_GET['id'])) {
 
         <div class="infos">
           <img src="assets/image/home.png" alt="home" />
-          <small><?php echo $data['house_no'] . ', ' . $data['street'] . ', ' . $data['baranggay'] . ', ' . $data['city_municipality'] . ', ' . $data['province_home']; ?></small>
+          <small><?php echo $data['houseNo'] . ', ' . $data['street'] . ', ' . $data['baranggay'] . ', ' . $data['cityMunicipality'] . ', ' . $data['province_home']; ?></small>
         </div>
         <br />
         <div class="infos2">
@@ -127,21 +127,21 @@ if (isset($_GET['id'])) {
           <h5>Place of Birth</h5>
           <div class="birth">
             <img src="assets/image/home.png" alt="home" />
-            <small>Born in <?php echo $data['b_house'] . ', ' . $data['b_street'] . ', ' . $data['b_baranggay'] . ', ' . $data['municipality_birth'] . ', ' . $data['province_home']; ?></small>
+            <small>Born in <?php echo $data['birth_house'] . ', ' . $data['birth_street'] . ', ' . $data['birth_baranggay'] . ', ' . $data['municipality_birth'] . ', ' . $data['province_home']; ?></small>
           </div>
         </div>
         <div class="infos2">
           <div class="card-info2">
             <label for="subdivision">Subdivision</label><br />
-            <input type="text" value="<?php echo $data['b_subdivision']; ?>" readonly />
+            <input type="text" value="<?php echo $data['birth_subdivision']; ?>" readonly />
           </div>
           <div class="card-info2">
             <label for="country">Country</label><br />
-            <input type="text" value="<?php echo $data['b_country']; ?>" readonly />
+            <input type="text" value="<?php echo $data['birth_country']; ?>" readonly />
           </div>
           <div class="card-info2">
             <label for="zip">Zip Code</label><br />
-            <input type="text" value="<?php echo $data['b_zip']; ?>" readonly />
+            <input type="text" value="<?php echo $data['birth_zip']; ?>" readonly />
           </div>
         </div>
       </div>
@@ -174,13 +174,13 @@ if (isset($_GET['id'])) {
           <div class="mother-info-display">
             <div class="card-info3">
               <label for="mother">Mother's Name</label><br />
-              <input type="text" value="<?php echo $data['mother_firstname'] . ' ' . $data['mother_middleinitial'] . '. ' . $data['mother_lastname']; ?>" readonly />
+              <input type="text" value="<?php echo $data['firstnameMother'] . ' ' . $data['middleinitialMother'] . '. ' . $data['lastnameMother']; ?>" readonly />
             </div>
           </div>
           <div class="father-info-display">
             <div class="card-info3">
               <label for="father">Father's Name</label><br />
-              <input type="text" value="<?php echo $data['father_firstname'] . ' ' . $data['father_middleinitial'] . '. ' . $data['father_lastname']; ?>" readonly />
+              <input type="text" value="<?php echo $data['firstnameFather'] . ' ' . $data['middleinitialFather'] . '. ' . $data['lastnameFather']; ?>" readonly />
             </div>
           </div>
         </div>
