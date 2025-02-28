@@ -111,7 +111,7 @@ class User
 
     public function getUserDetails($user_id)
     {
-        $query = "SELECT users.user_id, users.firstname, users.lastname, users.middle, users.dob as 'date', users.age, users.sex, users.civil_status, users.other_status, users.tax, users.nationality, users.religion,
+        $query = "SELECT users.user_id, users.firstname, users.lastname, users.middle, users.dob as 'date', users.age, users.sex, users.civil_status as civilStatus, users.other_status as otherStatus, users.tax, users.nationality, users.religion,
         
         ad.unit, ad.house_no as houseNo, ad.street, ad.subdivision, ad.baranggay, ad.city_municipality as cityMunicipality, ad.province_home, ad.country, ad.zip, 
          

@@ -152,20 +152,19 @@ function validateDateOfBirth($fieldName, $validationSession, &$valid)
         }
     }
 }
-
-// Validate Only Letters
+//  Only Letters
 function checkLetters($value)
 {
     return preg_match("/^[A-Z][a-zA-Z\s]*$/", $value);
 }
 
-// Validate Numbers Only
+//  Numbers Only
 function isNumber($value)
 {
     return preg_match("/^[0-9]+$/", $value);
 }
 
-// Validate Tax Format (XXX-XX-XXXX)
+//  Tax Format (XXX-XX-XXXX)
 function validateTax($fieldName, $validationSession, &$valid)
 {
     validateRequiredField($fieldName, $validationSession, 'Tax number is required!', $valid);
@@ -175,7 +174,7 @@ function validateTax($fieldName, $validationSession, &$valid)
     }
 }
 
-// Validate Generic Text Input (Capitalized & Letters)
+//  Generic Text Input (Capitalized & Letters)
 function validateTextInput($fieldName, $validationSession, $errorMessage, &$valid)
 {
     validateRequiredField($fieldName, $validationSession, $errorMessage, $valid);

@@ -100,12 +100,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && isset($_GET['id']) && empty($data))
 
                         <div class="select">
                             <select name="civilStatus" id="civilStatus" onchange="clickOthers()">
-                                <option value="" disabled <?php echo empty($data['civil_status']) ? 'selected' : ''; ?>>Select Civil Status</option>
-                                <option value="Single" <?php echo $data['civil_status'] === 'Single' ? 'selected' : ''; ?>>Single</option>
-                                <option value="Married" <?php echo $data['civil_status'] === 'Married' ? 'selected' : ''; ?>>Married</option>
-                                <option value="Widowed" <?php echo $data['civil_status'] === 'Widowed' ? 'selected' : ''; ?>>Widowed</option>
-                                <option value="Legally Separated" <?php echo $data['civil_status'] === 'Legally Separated' ? 'selected' : ''; ?>>Legally Separated</option>
-                                <option value="others" <?php echo $data['civil_status'] === 'others' ? 'selected' : ''; ?>>Others</option>
+                                <option value="" disabled <?php echo empty($data['civilStatus']) ? 'selected' : ''; ?>>Select Civil Status</option>
+                                <option value="Single" <?php echo $data['civilStatus'] === 'Single' ? 'selected' : ''; ?>>Single</option>
+                                <option value="Married" <?php echo $data['civilStatus'] === 'Married' ? 'selected' : ''; ?>>Married</option>
+                                <option value="Widowed" <?php echo $data['civilStatus'] === 'Widowed' ? 'selected' : ''; ?>>Widowed</option>
+                                <option value="Legally Separated" <?php echo $data['civilStatus'] === 'Legally Separated' ? 'selected' : ''; ?>>Legally Separated</option>
+                                <option value="others" <?php echo $data['civilStatus'] === 'others' ? 'selected' : ''; ?>>Others</option>
                             </select><br>
                             <span class="error"><?php echo $civilStatusInvalid; ?></span>
                         </div>

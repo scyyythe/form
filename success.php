@@ -60,7 +60,7 @@ if (isset($_GET['id'])) {
         <div class="card-info">
           <br /><label for="status">Civil Status</label><br />
           <input type="text"
-            value="<?php echo ($data['civil_status'] === 'others' && !empty($data['other_status'])) ? $data['other_status'] : $data['civil_status']; ?>"
+            value="<?php echo ($data['civilStatus'] === 'others' && !empty($data['otherStatus'])) ? $data['otherStatus'] : $data['civilStatus']; ?>"
             readonly />
         </div>
 
