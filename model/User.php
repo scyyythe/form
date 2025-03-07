@@ -8,17 +8,7 @@ class User
         $this->conn = $db_conn;
     }
 
-    private function bindValues($statement, $data)
-    {
-        $placeholders = [];
-        preg_match_all('/:([a-zA-Z0-9_]+)/', $statement->queryString, $placeholders);
 
-        foreach ($placeholders[1] as $placeholder) {
-            if (isset($data[$placeholder])) {
-                $statement->bindValue(":$placeholder", $data[$placeholder]);
-            }
-        }
-    }
     public function calculateAge($dob)
     {
         if (empty($dob)) {
@@ -33,52 +23,55 @@ class User
     public function insert($data)
     {
 
-        //user
-        $userQuery = "INSERT INTO users (firstname, lastname, middle, dob, age, sex, civil_status, other_status, tax, nationality, religion) 
-                      VALUES (:firstname, :lastname, :middle, :dob, :age, :sex, :civil_status, :other_status, :tax, :nationality, :religion)";
-        $statement = $this->conn->prepare($userQuery);
-        $this->bindValues($statement, $data);
-        if (!$statement->execute()) {
-            print_r($statement->errorInfo());
-            exit();
-        }
-
-        $user_id = $this->conn->lastInsertId();
+        $user_id = $this->insertTable('users', $data);
         if (!$user_id) {
             return "Failed to insert user.";
         }
         $data['user_id'] = $user_id;
 
-        //address
-        $addressQuery = "INSERT INTO addresses (user_id, unit, house_no, street, subdivision, baranggay, city_municipality, province_home, country, zip) 
-                         VALUES (:user_id, :unit, :house_no, :street, :subdivision, :baranggay, :city_municipality, :province_home, :country, :zip)";
-        $statement = $this->conn->prepare($addressQuery);
-        $this->bindValues($statement, $data);
-        $statement->execute();
+        $tables = ['addresses', 'contacts', 'parents', 'birth_place'];
 
-        //contancts
-        $contactQuery = "INSERT INTO contacts (user_id, mobile, email, telephone) 
-                         VALUES (:user_id, :mobile, :email, :telephone)";
-        $statement = $this->conn->prepare($contactQuery);
-        $this->bindValues($statement, $data);
-        $statement->execute();
-
-        //parents
-        $parentQuery = "INSERT INTO parents (user_id, father_lastname, father_firstname, father_middleinitial, mother_lastname, mother_firstname, mother_middleinitial) 
-                        VALUES (:user_id, :father_lastname, :father_firstname, :father_middleinitial, :mother_lastname, :mother_firstname, :mother_middleinitial)";
-        $statement = $this->conn->prepare($parentQuery);
-        $this->bindValues($statement, $data);
-        $statement->execute();
-
-
-        //birth
-        $birthPlaceQuery = "INSERT INTO birth_place (user_id, b_unit, b_house, b_street, b_subdivision, b_baranggay, b_country, b_zip, municipality_birth, province_birth)
-          VALUES (:user_id, :b_unit, :b_house, :b_street, :b_subdivision, :b_baranggay, :b_country, :b_zip,:municipality_birth, :province_birth)";
-        $statement = $this->conn->prepare($birthPlaceQuery);
-        $this->bindValues($statement, $data);
-        $statement->execute();
+        foreach ($tables as $table) {
+            $this->insertTable($table, $data);
+        }
 
         return true;
+    }
+
+    private function insertTable($table, $data)
+    {
+
+        $table_col = [
+            'users' => ['firstname', 'lastname', 'middle', 'dob', 'age', 'sex', 'civil_status', 'other_status', 'tax', 'nationality', 'religion'],
+            'addresses' => ['user_id', 'unit', 'house_no', 'street', 'subdivision', 'baranggay', 'city_municipality', 'province_home', 'country', 'zip'],
+            'contacts' => ['user_id', 'mobile', 'email', 'telephone'],
+            'parents' => ['user_id', 'father_lastname', 'father_firstname', 'father_middleinitial', 'mother_lastname', 'mother_firstname', 'mother_middleinitial'],
+            'birth_place' => ['user_id', 'b_unit', 'b_house', 'b_street', 'b_subdivision', 'b_baranggay', 'b_country', 'b_zip', 'municipality_birth', 'province_birth']
+        ];
+
+        if (!isset($table_col[$table])) {
+            return false;
+        }
+
+        $cols = implode(', ', $table_col[$table]);
+        $placeholders = ':' . implode(', :', $table_col[$table]);
+
+        $insert_data = "INSERT INTO $table ($cols) VALUES ($placeholders)";
+        $statement = $this->conn->prepare($insert_data);
+
+        foreach ($table_col[$table] as $column) {
+            $statement->bindValue(":$column", $data[$column]);
+        }
+        if (!$statement->execute()) {
+            print_r($statement->errorInfo());
+            exit();
+        }
+
+        if ($table === 'users') {
+            return $this->conn->lastInsertId();
+        } else {
+            return true;
+        }
     }
 
     public function getAll()
@@ -129,7 +122,7 @@ class User
         WHERE users.user_id = :user_id";
 
         $statement = $this->conn->prepare($query);
-        $statement->bindParam(':user_id', $user_id);
+        $statement->bindValue(':user_id', $user_id);
         $statement->execute();
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
@@ -140,78 +133,86 @@ class User
         $fields['dob'] = $fields['date'];
         unset($fields['date']);
 
-        $fields['father_lastname'] = $fields['lastnameFather'];
-        $fields['father_firstname'] = $fields['firstnameFather'];
-        $fields['father_middleinitial'] = $fields['middleinitialFather'];
-        $fields['mother_lastname'] = $fields['lastnameMother'];
-        $fields['mother_firstname'] = $fields['firstnameMother'];
-        $fields['mother_middleinitial'] = $fields['middleinitialMother'];
 
+        $change_field = [
+            'lastnameFather' => 'father_lastname',
+            'firstnameFather' => 'father_firstname',
+            'middleinitialFather' => 'father_middleinitial',
+            'lastnameMother' => 'mother_lastname',
+            'firstnameMother' => 'mother_firstname',
+            'middleinitialMother' => 'mother_middleinitial',
+            'civilStatus' => 'civil_status',
+            'otherStatus' => 'other_status',
+            'houseNo' => 'house_no',
+            'birth_unit' => 'b_unit',
+            'birth_house' => 'b_house',
+            'birth_subdivision' => 'b_subdivision',
+            'birth_baranggay' => 'b_baranggay',
+            'birth_country' => 'b_country',
+            'birth_zip' => 'b_zip',
+            'birth_street' => 'b_street',
+            'cityMunicipality' => 'city_municipality'
+        ];
+
+
+        foreach ($change_field as $old_data => $new_data) {
+            if (isset($fields[$old_data])) {
+                $fields[$new_data] = $fields[$old_data];
+            }
+        }
 
         $fields['user_id'] = $user_id;
 
 
-        $userQuery = "UPDATE users 
-                        SET firstname = :firstname, lastname = :lastname, middle = :middle, dob = :dob, 
-                            age = :age, sex = :sex, civil_status = :civilStatus, other_status = :otherStatus, 
-                            tax = :tax, nationality = :nationality, religion = :religion
-                        WHERE user_id = :user_id";
-
-        $statement = $this->conn->prepare($userQuery);
-        $this->bindValues($statement, $fields);
-        $statement->execute();
-
-        // Update address
-        $addressQuery = "UPDATE addresses 
-                         SET unit = :unit, house_no = :houseNo, street = :street, subdivision = :subdivision, 
-                             baranggay = :baranggay, city_municipality = :cityMunicipality, province_home = :province_home, 
-                             country = :country, zip = :zip 
-                         WHERE user_id = :user_id";
-
-        $statement = $this->conn->prepare($addressQuery);
-        $this->bindValues($statement, $fields);
-        $statement->execute();
-
-        // Update birth place
-        $birthPlaceQuery = "UPDATE birth_place 
-                        SET b_unit = :birth_unit, b_house = :birth_house, b_street = :birth_street, 
-                            b_subdivision = :birth_subdivision, b_baranggay = :birth_baranggay, 
-                            b_country = :birth_country, b_zip = :birth_zip, 
-                            municipality_birth = :municipality_birth, province_birth = :province_birth
-                        WHERE user_id = :user_id";
-
-        $statement = $this->conn->prepare($birthPlaceQuery);
-        $this->bindValues($statement, $fields);
-        $statement->execute();
-
-        // Update contacts
-        $contactQuery = "UPDATE contacts 
-                             SET mobile = :mobile, email = :email, telephone = :telephone 
-                             WHERE user_id = :user_id";
-
-        $statement = $this->conn->prepare($contactQuery);
-        $this->bindValues($statement, $fields);
-        $statement->execute();
-
-        // Update parents
-        $parentQuery = "UPDATE parents 
-                            SET father_lastname = :father_lastname, father_firstname = :father_firstname, 
-                                father_middleinitial = :father_middleinitial, mother_lastname = :mother_lastname, 
-                                mother_firstname = :mother_firstname, mother_middleinitial = :mother_middleinitial 
-                            WHERE user_id = :user_id";
-
-        $statement = $this->conn->prepare($parentQuery);
-        $this->bindValues($statement, $fields);
-        $statement->execute();
+        foreach (['users', 'addresses', 'contacts', 'parents', 'birth_place'] as $table) {
+            $this->updateTable($table, $fields);
+        }
 
         return true;
     }
+
+    private function updateTable($table, $data)
+    {
+        $table_col = [
+            'users' => ['firstname', 'lastname', 'middle', 'dob', 'age', 'sex', 'civil_status', 'other_status', 'tax', 'nationality', 'religion'],
+            'addresses' => ['unit', 'house_no', 'street', 'subdivision', 'baranggay', 'city_municipality', 'province_home', 'country', 'zip'],
+            'contacts' => ['mobile', 'email', 'telephone'],
+            'parents' => ['father_lastname', 'father_firstname', 'father_middleinitial', 'mother_lastname', 'mother_firstname', 'mother_middleinitial'],
+            'birth_place' => ['b_unit', 'b_house', 'b_street', 'b_subdivision', 'b_baranggay', 'b_country', 'b_zip', 'municipality_birth', 'province_birth']
+        ];
+
+        if (!isset($table_col[$table])) {
+            return false;
+        }
+
+        $setClauses = [];
+        foreach ($table_col[$table] as $column) {
+            $setClauses[] = "$column = :$column";
+        }
+        $setString = implode(', ', $setClauses);
+
+        $update_query = "UPDATE $table SET $setString WHERE user_id = :user_id";
+        $statement = $this->conn->prepare($update_query);
+
+        foreach ($table_col[$table] as $column) {
+            if (isset($data[$column])) {
+                $statement->bindValue(":$column", $data[$column]);
+            } else {
+                $statement->bindValue(":$column", null);
+            }
+        }
+        $statement->bindValue(":user_id", $data['user_id']);
+
+        return $statement->execute();
+    }
+
+
 
     public function delete($user_id)
     {
         $deleteUser = "DELETE FROM users WHERE user_id = :user_id";
         $statement = $this->conn->prepare($deleteUser);
-        $statement->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         return $statement->execute();
     }
 }
