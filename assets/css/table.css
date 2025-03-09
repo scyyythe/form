@@ -78,10 +78,26 @@ header{
     gap: 1rem;
     font-size: .8rem;
 }
+
 .total-con span{
     margin-left: .2rem;
     color: white;
     background-color: #9b7ebd93;
+    padding-block:3px;
+    border-radius: 10px;
+    padding-inline: .5rem;
+}
+.total-con-del{
+    display: flex;
+    height:100%;
+    align-items: center;
+    gap: 1rem;
+    font-size: .8rem;
+}
+.total-con-del span{
+    margin-left: .2rem;
+    color: white;
+    background-color: #ca2020cc;
     padding-block:3px;
     border-radius: 10px;
     padding-inline: .5rem;
@@ -113,7 +129,22 @@ header{
     gap: 5px;
     cursor: pointer;
 }
-
+.empty-btn{
+    
+        padding-inline: 1rem;
+        border: solid 1px;
+        height: 100%;
+        border: none;
+        border-radius:5px;
+        background-color: #e72929;
+        color: white;
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+    
+}
 .table-con{
     margin-top: 1rem;
 }
@@ -147,11 +178,45 @@ th{
 .find:hover{
     color: green;
 }
+
+.restore{
+    color: rgba(0, 128, 0, 0.411);
+}
+.restore:hover{
+    color: rgb(4, 180, 4);
+}
 .delete{
     color: rgba(255, 0, 0, 0.336);
 }
 .delete:hover{
     color: red;
+}
+.view-trash{
+    color: rgba(255, 0, 0, 0.89);
+    border: none;
+padding: 5px;
+border-radius: 5px;
+    font-size: 11px;
+    cursor: pointer;
+}
+.view-trash i{
+    font-size: .8rem;
+    cursor: pointer;
+}
+.return-to-view{
+    display: flex;
+}
+
+.return-to-view button{
+    border: none;
+    background-color: transparent;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.return-to-view button i{
+    font-size: 1.5rem;
+    color: #3B1E54;
+    cursor: pointer;
 }
 .edit{
    

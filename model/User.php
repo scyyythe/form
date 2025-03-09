@@ -40,9 +40,10 @@ class User
 
     private function insertTable($table, $data)
     {
-
+        $status = 'Active';
+        $data['status'] = $status;
         $table_col = [
-            'users' => ['firstname', 'lastname', 'middle', 'dob', 'age', 'sex', 'civil_status', 'other_status', 'tax', 'nationality', 'religion'],
+            'users' => ['firstname', 'lastname', 'middle', 'dob', 'age', 'sex', 'civil_status', 'other_status', 'tax', 'nationality', 'religion', 'status'],
             'addresses' => ['user_id', 'unit', 'house_no', 'street', 'subdivision', 'baranggay', 'city_municipality', 'province_home', 'country', 'zip'],
             'contacts' => ['user_id', 'mobile', 'email', 'telephone'],
             'parents' => ['user_id', 'father_lastname', 'father_firstname', 'father_middleinitial', 'mother_lastname', 'mother_firstname', 'mother_middleinitial'],
@@ -76,7 +77,7 @@ class User
 
     public function getAll()
     {
-        $dataQuery = "SELECT users.user_id, users.firstname, users.lastname, users.middle, users.dob,users.age, users.sex, users.civil_status, users.other_status, users.tax, users.nationality, users.religion,
+        $dataQuery = "SELECT users.user_id, users.firstname, users.lastname, users.middle, users.dob,users.age, users.sex, users.civil_status, users.other_status, users.tax, users.nationality, users.religion,users.status,
         
         ad.unit, ad.house_no, ad.street, ad.subdivision, ad.baranggay, ad.city_municipality, ad.province_home, ad.country, ad.zip, 
          
@@ -90,7 +91,9 @@ class User
         LEFT JOIN addresses ad ON users.user_id = ad.user_id
         LEFT JOIN birth_place birth ON users.user_id = birth.user_id
         LEFT JOIN contacts ON users.user_id = contacts.user_id
-        LEFT JOIN parents ON users.user_id = parents.user_id";
+        LEFT JOIN parents ON users.user_id = parents.user_id
+        WHERE users.status = 'Active';
+        ";
 
         $statement = $this->conn->prepare($dataQuery);
         if (!$statement->execute()) {
@@ -101,7 +104,37 @@ class User
 
         return $result;
     }
+    public function getAllArchived()
+    {
+        $dataQuery = "SELECT users.user_id, users.firstname, users.lastname, users.middle, users.dob,users.age, users.sex, users.civil_status, users.other_status, users.tax, users.nationality, users.religion,users.status,
+        
+        ad.unit, ad.house_no, ad.street, ad.subdivision, ad.baranggay, ad.city_municipality, ad.province_home, ad.country, ad.zip, 
+         
+        birth.b_unit, birth.b_house, birth.b_subdivision, birth.b_baranggay, birth.municipality_birth, birth.province_birth, birth.b_country,  birth.b_zip, birth.b_street,
+        
+        contacts.mobile, contacts.email, contacts.telephone,
+        
+        parents.father_lastname, parents.father_firstname, parents.father_middleinitial, parents.mother_lastname, parents.mother_firstname, parents.mother_middleinitial
+        
+        FROM users 
+        LEFT JOIN addresses ad ON users.user_id = ad.user_id
+        LEFT JOIN birth_place birth ON users.user_id = birth.user_id
+        LEFT JOIN contacts ON users.user_id = contacts.user_id
+        LEFT JOIN parents ON users.user_id = parents.user_id
 
+         WHERE users.status = 'Archived';
+        ";
+
+
+        $statement = $this->conn->prepare($dataQuery);
+        if (!$statement->execute()) {
+            print_r($statement->errorInfo());
+            exit();
+        }
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
     public function getUserDetails($user_id)
     {
         $query = "SELECT users.user_id, users.firstname, users.lastname, users.middle, users.dob as 'date', users.age, users.sex, users.civil_status as civilStatus, users.other_status as otherStatus, users.tax, users.nationality, users.religion,
@@ -210,6 +243,31 @@ class User
 
     public function delete($user_id)
     {
+        $archivedUser = "UPDATE users SET status = 'Archived' WHERE user_id = :user_id";
+        $statement = $this->conn->prepare($archivedUser);
+        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        return $statement->execute();
+    }
+
+    public function restore($user_id)
+    {
+        $restoreUser = "UPDATE users SET status = 'Active' WHERE user_id = :user_id";
+        $statement = $this->conn->prepare($restoreUser);
+        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        return $statement->execute();
+    }
+
+    public function deleteAll($user_id)
+    {
+
+        $deleteAllUser = "DELETE FROM users WHERE status = 'Archived'";
+        $statement = $this->conn->prepare($deleteAllUser);
+        return $statement->execute();
+    }
+
+    public function deleteSpecific($user_id)
+    {
+
         $deleteUser = "DELETE FROM users WHERE user_id = :user_id";
         $statement = $this->conn->prepare($deleteUser);
         $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);

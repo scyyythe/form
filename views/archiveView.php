@@ -4,10 +4,7 @@ require_once '../config/connection.php';
 require_once '../model/User.php';
 
 $user = new User($conn);
-$users = $user->getAll();
-
-
-?>
+$users = $user->getAllArchived(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,15 +12,19 @@ $users = $user->getAll();
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="../assets/image/icons8-users-48.png" />
-  <link rel="stylesheet" href="../assets/css/table.css">
+  <link rel="stylesheet" href="../assets/css/table.css" />
 
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-  <title>List of Users</title>
+  <title>Recently Deleted</title>
 </head>
 
 <body>
   <header>
-    <p>List of Users</p>
+    <div class="return-to-view">
+      <button onclick="window.location.href='../views/dataView.php'"><i class='bx bx-chevron-left'></i></button>
+      <p>List of Deleted Users</p>
+    </div>
+
 
     <div class="search">
       <input type="text" id="searchInput" placeholder="Search by name" onkeyup="searchTable()" />
@@ -35,19 +36,20 @@ $users = $user->getAll();
   </header>
 
   <main>
-
     <div class="wrapper">
       <div class="head">
-        <div class="total-con">
-          <p>Total Users <span><?php echo count($users); ?></span></p>
+        <div class="total-con-del">
+          <p>
+            Total Users <span><?php echo count($users); ?></span>
+          </p>
         </div>
         <div class="container">
-          <button class="filter-btn">
-            Sort <span id="sortLabel">A-Z</span> <i class="bx bx-filter"></i>
-          </button>
+          <button class="filter-btn">Sort <span id="sortLabel">A-Z</span> <i class="bx bx-filter"></i></button>
 
-          <button class="add-btn" onclick="window.location.href='../return.php'">Add New <i class="bx bx-message-square-add"></i></button>
-          <button type="submit" class="view-trash" onclick="window.location.href='archiveView.php'">Recently Deleted</i></button>
+          <form method="POST" action="../routes/process.php" onsubmit="return confirm(' Are you sure you want to delete all these users?');">
+            <input type="hidden" name="delete_all" value="<?php echo $data['user_id']; ?>">
+            <button type="submit" class="empty-btn">Empty Trash</button>
+          </form>
         </div>
       </div>
 
@@ -81,23 +83,22 @@ $users = $user->getAll();
                 <td><?php echo $data['sex']; ?></td>
                 <td><?php echo $data['nationality']; ?></td>
                 <td class="actions">
-                  <button class="find" onclick="window.location.href='../success.php?id=<?php echo $data['user_id']; ?>'"><i class="bx bx-file-find"></i></button>
-                  <button class="edit" onclick="window.location.href='../views/updateView.php?id=<?php echo $data['user_id']; ?>'"><i class="bx bx-edit"></i></button>
 
-                  <form method="POST" action="../routes/process.php" onsubmit="return confirm('Are you sure you want to delete this user?');">
-                    <input type="hidden" name="archived_user" value="<?php echo $data['user_id']; ?>">
-                    <button type="submit" class="delete"><i class="bx bx-trash"></i></button>
+                  <form action="../routes/process.php" method="POST" onsubmit="return confirm(' Are you sure you want to restore this user?');">
+                    <input type="hidden" name="restore_user" value="<?php echo $data['user_id']; ?>">
+                    <button type="submit" class="restore"><i class='bx bx-revision'></i></button>
                   </form>
 
+                  <form method="POST" action="../routes/process.php" onsubmit="return confirm(' Are you sure you want to delete this user?');">
+                    <input type="hidden" name="delete_user" value="<?php echo $data['user_id']; ?>">
+                    <button type="submit" class="delete"><i class="bx bx-trash"></i></button>
+                  </form>
                 </td>
               </tr>
           <?php
             endforeach;
           endif;
           ?>
-
-
-
         </table>
       </div>
     </div>

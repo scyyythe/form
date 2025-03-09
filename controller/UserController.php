@@ -111,8 +111,38 @@ class UserController
     public function deleteUser($user_id)
     {
 
+        if ($this->user->deleteSpecific($user_id)) {
+            header("Location: ../views/archiveView.php?message=User Deleted successfully");
+            exit();
+        } else {
+            echo "Failed to delete user.";
+        }
+    }
+    public function deleteAll($user_id)
+    {
+
+        if ($this->user->deleteAll($user_id)) {
+            header("Location: ../views/archiveView.php?message=Users Deleted successfully");
+            exit();
+        } else {
+            echo "Failed to delete user.";
+        }
+    }
+    public function delete($user_id)
+    {
+
         if ($this->user->delete($user_id)) {
             header("Location: ../views/dataView.php?message=User Deleted successfully");
+            exit();
+        } else {
+            echo "Failed to delete user.";
+        }
+    }
+    public function restoreUser($user_id)
+    {
+
+        if ($this->user->restore($user_id)) {
+            header("Location: ../views/dataView.php?message=User Restored successfully");
             exit();
         } else {
             echo "Failed to delete user.";
