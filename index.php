@@ -1,6 +1,6 @@
 <?php
 include 'controller/session_data.php';
-session_reset();
+// new changes for the form
 ?>
 
 <!DOCTYPE html>
