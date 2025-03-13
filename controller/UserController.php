@@ -76,7 +76,7 @@ class UserController
         $result = $this->user->insert($data);
 
         if ($result !== true) {
-            echo "Insert failed: " . $result;
+            echo "Insert failed";
             exit();
         }
 
