@@ -6,20 +6,25 @@ $statement = $conn->query($query);
 $cities = $statement->fetchAll();
 
 $selectedCity = isset($_POST['city']) ? $_POST['city'] : null;
-$places = [];
+$place = [];
 
 if (!empty($selectedCity)) {
-    $query = "SELECT addresses.*, users.firstname 
-    FROM addresses 
-    INNER JOIN users ON addresses.user_id = users.user_id
-    WHERE addresses.city_municipality = :city";
+    $query = "SELECT addresses.*, users.firstname FROM addresses INNER JOIN users on addresses.user_id=users.user_id WHERE city_municipality=:city";
     $statement = $conn->prepare($query);
     $statement->bindValue(":city", $selectedCity);
     $statement->execute();
-    $places = $statement->fetchAll();
-}
-?>
+    $place = $statement->fetchAll();
 
+    $count = "SELECT COUNT(*) AS total FROM addresses WHERE city_municipality=:city";
+    $statement = $conn->prepare($count);
+    $statement->bindValue(":city", $selectedCity);
+    $statement->execute();
+    $cityCount = $statement->fetch();
+    $totalCount = $cityCount['total'];
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,18 +33,20 @@ if (!empty($selectedCity)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<form action=""></form>
 
 <body>
     <form action="" method="POST">
 
-        <label for="">Select Municipality</label>
-        <select name="city" onchange="this.form.submit()"><br>
-            <option value="">Select City</option>
+        <label for="city">Select City</label>
+        <select name="city" onchange="this.form.submit()">
+            <option value="">Select Municipality</option>
             <?php
             foreach ($cities as $city) {
                 $cityName = $city['city_municipality'];
 
                 if ($selectedCity == $cityName) {
+
                     $isSelected = 'selected';
                 } else {
                     $isSelected = '';
@@ -48,17 +55,19 @@ if (!empty($selectedCity)) {
                 echo "<option value='$cityName' $isSelected>$cityName</option>";
             }
             ?>
-
         </select>
 
-        <h2>Display Places of <?php echo $selectedCity ?></h2>
+        <h3>Display of Places From <?php echo $selectedCity ?></h3>
         <ul>
             <?php
-            foreach ($places as $place) {
-                echo $place['firstname'] . "<br>";
+            foreach ($place as $places) {
+                echo $places['firstname'] . "<br>";
             }
             ?>
         </ul>
+
+        <h3>Number of People living in <?php echo $selectedCity ?></h3>
+        <h1><?php echo $totalCount ?></h1>
     </form>
 </body>
 
